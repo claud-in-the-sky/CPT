@@ -1,1 +1,62 @@
+import pygame
+pygame.init()
+import random
+
+#define colours
+Bl= (0, 0, 0)
+R = (255, 0, 0)
+G = (0, 255, 0)
+B = (0, 0, 255)
+
+#open window
+size = (1366, 768)
+screen = pygame.display.set_mode(size)
+
+#randomize position of dots falling
+x = range(0, 1347)  
+xBl = random.choice(x)
+xR = random.choice(x)
+xG = random.choice(x)
+xB = random.choice(x)
+
+#assign dots to variables
+Black = pygame.draw.ellipse(screen, Bl, [20,20,xBl,0],2)
+Red = pygame.draw.ellipse(screen, R, [20,20,xR,0],2)
+Green = pygame.draw.ellipse(screen, G, [20,20,xG,0],2)
+Blue = pygame.draw.ellipse(screen, B, [20,20,xB,0],2)
+
+#animation
+black_x=50
+While eat_time <= 1:30
+for event in pygame.event.get() 
+black
+    black_x +=1
+
+---------------------------------------------------------
+Just ignore this
+
+import pygame
+import time
+pygame.init()
+
+Bl= (0, 0, 0)
+R = (255, 0, 0)
+G = (0, 255, 0)
+B = (0, 0, 255)
+W = (255, 255, 255)
+#open window
+size = (1366, 768)
+screen = pygame.display.set_mode(size)
+screen.fill(W)
+black = pygame.draw.ellipse(screen, Bl, [20,20,20,20],10)
+red = pygame.draw.ellipse(screen, R, [50,50,20,20],10)
+green = pygame.draw.ellipse(screen, G, [80,80,20,20],10)
+blue = pygame.draw.ellipse(screen, B, [110,110,20,20],10)
+
+black
+red
+green
+blue
+pygame.display.flip()
+
 
