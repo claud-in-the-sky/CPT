@@ -59,4 +59,52 @@ green
 blue
 pygame.display.flip()
 
+----------------------------------------------------------
+import pygame
+pygame.init()
+#randomize positions of dots
+import random
+#draw arc (basket)
+import math
+
+#define colours
+Bl= (0, 0, 0)
+R = (255, 0, 0)
+G = (0, 255, 0)
+B = (0, 0, 255)
+W = (255, 255, 255)
+Br= (139,69,19)
+
+#open window
+size = (1366, 768)
+screen = pygame.display.set_mode(size)
+screen.fill(W)
+
+#randomize position of dots falling
+x = range(0, 1347)
+xBl = random.choice(x)
+xR = random.choice(x)
+xG = random.choice(x)
+xB = random.choice(x)
+
+#draw dots and basket
+Black = pygame.draw.ellipse(screen, Bl, [xBl,20,20,20],0)
+Red = pygame.draw.ellipse(screen, R, [xR,20,20,20],0)
+Green = pygame.draw.ellipse(screen, G, [xG,20,20,20],0)
+Blue = pygame.draw.ellipse(screen, B, [xB,20,20,20],0)
+pi = math.pi
+Basket = pygame.draw.arc(screen, Br, [650,625,75, 75], pi, 0, 35)
+
+
+Blue
+Green
+Red
+Black
+wait = pygame.time.wait()
+
+pygame.display.flip()
+wait(900)
+
+
+
 
