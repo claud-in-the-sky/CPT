@@ -1,67 +1,5 @@
 import pygame
 pygame.init()
-import random
-
-#define colours
-Bl= (0, 0, 0)
-R = (255, 0, 0)
-G = (0, 255, 0)
-B = (0, 0, 255)
-
-#open window
-size = (1366, 768)
-screen = pygame.display.set_mode(size)
-
-#randomize position of dots falling
-x = range(0, 1347)  
-xBl = random.choice(x)
-xR = random.choice(x)
-xG = random.choice(x)
-xB = random.choice(x)
-
-#assign dots to variables
-Black = pygame.draw.ellipse(screen, Bl, [20,20,xBl,0],2)
-Red = pygame.draw.ellipse(screen, R, [20,20,xR,0],2)
-Green = pygame.draw.ellipse(screen, G, [20,20,xG,0],2)
-Blue = pygame.draw.ellipse(screen, B, [20,20,xB,0],2)
-
-#animation
-black_x=50
-While eat_time <= 1:30
-for event in pygame.event.get() 
-black
-    black_x +=1
-
----------------------------------------------------------
-Just ignore this
-
-import pygame
-import time
-pygame.init()
-
-Bl= (0, 0, 0)
-R = (255, 0, 0)
-G = (0, 255, 0)
-B = (0, 0, 255)
-W = (255, 255, 255)
-#open window
-size = (1366, 768)
-screen = pygame.display.set_mode(size)
-screen.fill(W)
-black = pygame.draw.ellipse(screen, Bl, [20,20,20,20],10)
-red = pygame.draw.ellipse(screen, R, [50,50,20,20],10)
-green = pygame.draw.ellipse(screen, G, [80,80,20,20],10)
-blue = pygame.draw.ellipse(screen, B, [110,110,20,20],10)
-
-black
-red
-green
-blue
-pygame.display.flip()
-
-----------------------------------------------------------
-import pygame
-pygame.init()
 #randomize positions of dots
 import random
 #draw arc (basket)
@@ -96,14 +34,69 @@ pi = math.pi
 Basket = pygame.draw.arc(screen, Br, [650,625,75, 75], pi, 0, 35)
 
 
-Blue
-Green
-Red
-Black
+
+#animation
+black_x=50
+While eat_time <= 1:30
+for event in pygame.event.get() 
+black
+    black_x +=1
+
 wait = pygame.time.wait()
 
 pygame.display.flip()
 wait(900)
+
+----------------------------
+import pygame
+pygame.init()
+#randomize positions of dots
+import random
+#draw arc (basket)
+import math
+
+if __name__ == "__main__":
+    screen = pygame.display.set_mode((1280, 720))
+
+    Bl = (0, 0, 0)
+    R = (255, 0, 0)
+    G = (0, 255, 0)
+    B = (0, 0, 255)
+    W = (255, 255, 255)
+    Br = (139, 69, 19)
+    bg = (135, 206, 250)
+
+    screen.fill(bg)
+
+    x = range(0, 1347)
+    xBl = random.choice(x)
+    xR = random.choice(x)
+    xG = random.choice(x)
+    xB = random.choice(x)
+
+    Black = pygame.draw.ellipse(screen, Bl, [xBl, 20, 20, 20], 0)
+    Red = pygame.draw.ellipse(screen, R, [xR, 20, 20, 20], 0)
+    Green = pygame.draw.ellipse(screen, G, [xG, 20, 20, 20], 0)
+    Blue = pygame.draw.ellipse(screen, B, [xB, 20, 20, 20], 0)
+    pi = math.pi
+    Basket = pygame.draw.arc(screen, Br, [650, 625, 75, 75], pi, 0, 35)
+
+
+    pygame.display.flip()
+
+    pygame.time.Clock()
+
+#define colours
+
+
+
+pygame.display.flip()
+
+#  loop through dots to randomize when they fall
+    #  possibly make a list and randomly choose a dot from that list
+#  loop through position of the dots for animation
+    #  for lvl1, remove red from list
+    #  for lvl 2, remove
 
 
 
