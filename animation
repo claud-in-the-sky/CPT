@@ -46,14 +46,13 @@ wait = pygame.time.wait()
 
 pygame.display.flip()
 wait(900)
-
-----------------------------
+----------------------------------------------------------------------
 import pygame
 pygame.init()
-#randomize positions of dots
-import random
-#draw arc (basket)
-import math
+
+import random  #randomize positions of dots
+
+import math  #draw arc(basket(needs pi))
 
 if __name__ == "__main__":
     screen = pygame.display.set_mode((1280, 720))
@@ -74,30 +73,34 @@ if __name__ == "__main__":
     xG = random.choice(x)
     xB = random.choice(x)
 
-    Black = pygame.draw.ellipse(screen, Bl, [xBl, 20, 20, 20], 0)
-    Red = pygame.draw.ellipse(screen, R, [xR, 20, 20, 20], 0)
-    Green = pygame.draw.ellipse(screen, G, [xG, 20, 20, 20], 0)
-    Blue = pygame.draw.ellipse(screen, B, [xB, 20, 20, 20], 0)
+    black = pygame.draw.ellipse(screen, Bl, [xBl, 20, 20, 20], 0)
+    red = pygame.draw.ellipse(screen, R, [xR, 20, 20, 20], 0)
+    green = pygame.draw.ellipse(screen, G, [xG, 20, 20, 20], 0)
+    blue = pygame.draw.ellipse(screen, B, [xB, 20, 20, 20], 0)
     pi = math.pi
-    Basket = pygame.draw.arc(screen, Br, [650, 625, 75, 75], pi, 0, 35)
-
+    basket = pygame.draw.arc(screen, Br, [650, 625, 75, 75], pi, 0, 35)
 
     pygame.display.flip()
 
     pygame.time.Clock()
 
-#define colours
-
-
-
 pygame.display.flip()
 
+#  ffunnccttionnnnsssssss
 #  loop through dots to randomize when they fall
     #  possibly make a list and randomly choose a dot from that list
-#  loop through position of the dots for animation
-    #  for lvl1, remove red from list
-    #  for lvl 2, remove
-
-
-
-
+#  loop through y-position of the dots for animation
+#  for lvl1, remove red from list
+#  for lvl2, remove green from list
+#  for lvl3, add black to the list
+#  once eat_time (the timer) is finished or 90,000 miliseconds has been reached
+    #  end the game
+#  add 2 to eat_point (the score counter) each time the top of the arc (basket) touches a coloured dot
+#  deduct 1 from eat_point each time the top of the arc (basket) touches a black dot
+#  start with lvl1 --> has normal blue, red, green dots and less black dots
+#  once eat_point == 10
+    #  call lvl2 function
+#  once eat_point == 20
+    #  call lvl2 function
+#  once eat_point == 26
+    #  call lvl3 function
