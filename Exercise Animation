@@ -1,9 +1,26 @@
-import pygame???
-screen.fill(BLACK)
+import pygame
+pygame.init()
+skin = (255, 211, 155)
+eyewhites = (252, 252, 252)
+eyeball = (3, 3, 3)
 SIZE = [1350, 720]
 screen = pygame.display.set_mode(SIZE)
+screen.fill(eyeball)
 
-skin = (255,211,155)
-eyewhites = (252,252,252)
-eyeball = (3,3,3)
-pygame.draw.circle(screen,skin, 500, 10, width=2)
+def exheadbody():
+    pygame.draw.circle(screen, skin, [650, 150], 100, 0)
+    pygame.draw.line(screen, skin, [650, 100], [650,500],30)
+    #The torso of the body
+def exarms():
+    pygame.draw.line(screen, skin, [650, 250], [500,400], 10)
+    pygame.draw.line(screen, skin, [650, 250], [800,400], 10)
+    pygame.draw.circle(screen, skin, [500,400], 20, 0)
+    pygame.draw.circle(screen, skin, [800,400], 20, 0)
+    #Stick arms including the hands
+def exlegs():
+    pygame.draw.line(screen, skin, [645,500],[600,700],20)
+    pygame.draw.line(screen, skin, [655, 500], [695, 700], 20)
+exheadbody()
+exarms()
+exlegs()
+pygame.display.flip()
