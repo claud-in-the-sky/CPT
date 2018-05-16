@@ -22,14 +22,15 @@
 import pygame
 import random
 import math
+
 pygame.init()
 
-Bl= (0, 0, 0)
+Bl = (0, 0, 0)
 R = (255, 0, 0)
 G = (0, 255, 0)
 B = (0, 0, 255)
 W = (255, 255, 255)
-Br= (139,69,19)
+Br = (139, 69, 19)
 
 SIZE = [1350, 720]
 screen = pygame.display.set_mode(SIZE)
@@ -41,6 +42,7 @@ dot_listr = []
 dot_listb = []
 
 clock = pygame.time.Clock()
+
 for i in range(3):
     clock.tick(20)
     x = random.randrange(0, 1350)
@@ -85,15 +87,15 @@ while not done:
 
     # Process each snow flake in the list
     for i in range(len(dot_listbl)):
-        pygame.draw.circle(screen, Bl, dot_listbl[i],10,0)
+        pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)
     for i in range(len(dot_listr)):
-        pygame.draw.circle(screen, R, dot_listr[i],10,0)
+        pygame.draw.circle(screen, R, dot_listr[i], 10, 0)
     for i in range(len(dot_listg)):
-        pygame.draw.circle(screen, G, dot_listg[i],10,0)
+        pygame.draw.circle(screen, G, dot_listg[i], 10, 0)
     for i in range(len(dot_listb)):
-        pygame.draw.circle(screen, B, dot_listb[i],10,0)
-        pygame.draw.arc(screen, Br, [bx,625,75, 75], math.pi, 0, 35)
-
+        pygame.draw.circle(screen, B, dot_listb[i], 10, 0)
+        pygame.draw.arc(screen, Br, [bx, 625, 75, 75], math.pi, 0, 35)
+    for i in range(len(dot_list)):
 
         # Move the snow flake down one pixel
         dot_listbl[i][1] += 5
@@ -139,7 +141,6 @@ while not done:
         bx = 1250
     if bx < 20:
         bx = 20
-
 
     # update the screen
     pygame.display.flip()
