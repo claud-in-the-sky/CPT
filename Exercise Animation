@@ -2,4 +2,8 @@ import pygame???
 screen.fill(BLACK)
 SIZE = [1350, 720]
 screen = pygame.display.set_mode(SIZE)
-pygame.draw.circle(screen,
+
+skin = (255,211,155)
+eyewhites = (252,252,252)
+eyeball = (3,3,3)
+pygame.draw.circle(screen,skin, 500, 10, width=2)
