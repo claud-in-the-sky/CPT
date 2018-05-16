@@ -48,25 +48,25 @@ for i in range(3):
     dot_list.append([x, y])
 
 for i in range(3):
-    clock.tick(20)
+    clock.tick(40)
     x = random.randrange(0, 1350)
     y = random.randrange(0, 500)
     dot_listbl.append([x, y])
 
 for i in range(3):
-    clock.tick(20)
+    clock.tick(40)
     x = random.randrange(0, 1350)
     y = random.randrange(0, 500)
     dot_listr.append([x, y])
 
 for i in range(3):
-    clock.tick(20)
+    clock.tick(40)
     x = random.randrange(0, 1350)
     y = random.randrange(0, 500)
     dot_listg.append([x, y])
 
 for i in range(3):
-    clock.tick(20)
+    clock.tick(40)
     x = random.randrange(0, 1350)
     y = random.randrange(0, 500)
     dot_listb.append([x, y])
@@ -74,7 +74,7 @@ for i in range(3):
 bx = 650
 # Loop until the user clicks the close button.
 done = False
-while not done:  
+while not done:
 
     for event in pygame.event.get():  # User did something
         if event.type == pygame.QUIT:  # If user clicked close
@@ -83,7 +83,7 @@ while not done:
     # Set the screen background
     screen.fill(W)
 
-    # Process each dot in the list
+    # Process each snow flake in the list
     for i in range(len(dot_listbl)):
         pygame.draw.circle(screen, Bl, dot_listbl[i],10,0)
     for i in range(len(dot_listr)):
@@ -94,14 +94,36 @@ while not done:
         pygame.draw.circle(screen, B, dot_listb[i],10,0)
         pygame.draw.arc(screen, Br, [bx,625,75, 75], math.pi, 0, 35)
 
-        # Move the dots down
+
+        # Move the snow flake down one pixel
         dot_listbl[i][1] += 5
         dot_listr[i][1] += 5
         dot_listg[i][1] += 5
         dot_listb[i][1] += 5
 
-        # If the dot has moved off the bottom of the screen
-        if dot_list[i][1] > 720:
+        # If the snow flake has moved off the bottom of the screen
+        if dot_listbl[i][1] > 720:
+            # Reset it just above the top
+            y = random.randrange(-50, -10)
+            dot_list[i][1] = y
+            # Give it a new x position
+            x = random.randrange(0, 1350)
+            dot_list[i][0] = x
+        if dot_listr[i][1] > 720:
+            # Reset it just above the top
+            y = random.randrange(-50, -10)
+            dot_list[i][1] = y
+            # Give it a new x position
+            x = random.randrange(0, 1350)
+            dot_list[i][0] = x
+        if dot_listg[i][1] > 720:
+            # Reset it just above the top
+            y = random.randrange(-50, -10)
+            dot_list[i][1] = y
+            # Give it a new x position
+            x = random.randrange(0, 1350)
+            dot_list[i][0] = x
+        if dot_listb[i][1] > 720:
             # Reset it just above the top
             y = random.randrange(-50, -10)
             dot_list[i][1] = y
@@ -114,12 +136,11 @@ while not done:
         if event.key == pygame.K_RIGHT:
             bx += 15
     if bx > 1250:
-        pygame.K_RIGHT = False
-        continue
+        bx = 1250
     if bx < 20:
-        pygame.K_LEFT = False
-        continue
-        
+        bx = 20
+
+
     # update the screen
     pygame.display.flip()
     clock.tick(20)
