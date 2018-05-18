@@ -44,13 +44,22 @@ def exlvl3():
 
 
 Fexintro()
+47
 totexscore = int(0)
+48
 while totexscore <= 10:
+49
     totexscore += exlvl1()
+50
     print(totexscore)
+51
 while totexscore > 10 and totexscore <= 20:
+52
     totexscore += exlvl2()
+53
     print(totexscore)
+54
 while totexscore > 20:
+55
     totexscore += exlvl3()
     print(totexscore)
