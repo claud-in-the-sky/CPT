@@ -33,6 +33,11 @@ def exarms():
 def exlegs():
     pygame.draw.line(screen, skin, [645,500],[600,700],20)
     pygame.draw.line(screen, skin, [655, 500], [695, 700], 20)
+def exarmsup():
+    pygame.draw.line(screen, skin, [650, 300], [500,200], 10)
+    pygame.draw.line(screen, skin, [650, 300], [800,200], 10)
+    pygame.draw.circle(screen, skin, [500,200], 20, 0)
+    pygame.draw.circle(screen, skin, [500,280], 20, 0)
 exheadbody()
 exarms()
 exlegs()
