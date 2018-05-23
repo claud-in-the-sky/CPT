@@ -1,12 +1,7 @@
-
-#  ffunnccttionnnnsssssss
-#  loop through dots to randomize when they fall
-    #  possibly make a list and randomly choose a dot from that list
-#  loop through y-position of the dots for animation
 #  for lvl1, remove red from list
 #  for lvl2, remove green from list
 #  for lvl3, add black to the list
-#  once eat_time (the timer) is finished or 90,000 miliseconds has been reached
+#  once eat_time (the timer) is finished 
     #  end the game
 #  add 2 to eat_point (the score counter) each time the top of the arc (basket) touches a coloured dot
 #  deduct 1 from eat_point each time the top of the arc (basket) touches a black dot
