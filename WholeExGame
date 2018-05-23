@@ -10,30 +10,25 @@ black = (3, 3, 3)
 SIZE = [1350, 720]
 screen = pygame.display.set_mode(SIZE)
 
-
 def exheadbody():
     pygame.draw.circle(screen, skin, [650, 150], 100, 0)
     pygame.draw.line(screen, skin, [650, 100], [650, 500], 30)
     # The torso of the body
-
 
 def exfacehappy():
     pygame.draw.circle(screen, black, [600, 150], 10, 0)
     pygame.draw.circle(screen, black, [690, 150], 10, 0)
     pygame.draw.arc(screen, black, [625, 150, 50, 50], math.pi, 0, 3)
 
-
 def exfacesad():
     pygame.draw.circle(screen, black, [600, 150], 10, 0)
     pygame.draw.circle(screen, black, [690, 150], 10, 0)
     pygame.draw.arc(screen, black, [625, 150, 50, 50], 0, math.pi, 3)
 
-
 def exfacenorm():
     pygame.draw.circle(screen, black, [600, 150], 10, 0)
     pygame.draw.circle(screen, black, [690, 150], 10, 0)
     pygame.draw.line(screen, black, [620, 175], [675, 175], 5)
-
 
 def exarms():
     pygame.draw.line(screen, skin, [650, 250], [500, 400], 10)
@@ -42,11 +37,9 @@ def exarms():
     pygame.draw.circle(screen, skin, [800, 400], 20, 0)
     # Stick arms including the hands
 
-
 def exlegs():
     pygame.draw.line(screen, skin, [645, 500], [600, 700], 20)
     pygame.draw.line(screen, skin, [655, 500], [695, 700], 20)
-
 
 def exarmsup():
     pygame.draw.line(screen, skin, [650, 300], [500, 200], 10)
@@ -58,8 +51,6 @@ def exarmsup():
 def Fexintro():
     print(
         "To exercise, copy the action word on the screen. If you get it right, 1 point will be added to your score. However, if you get it wrong, one point will be deducted from your score.")
-
-
 # The intro function for the exercise game, played before game starts
 
 def exlvl1():
@@ -87,10 +78,9 @@ def exlvl1():
         exarmsup()
         exlegs()
     return exscore1
-
-
 # The function is for the first level of the exercise game
 # exscore1 is the score from the first level of game
+
 def exlvl2():
     words1 = ["run", "walk", "stretch", "jump", "jog", "duck", "hit", "crawl", "stand", "sit", "swing", "plank", "kick",
               "punch", "crunch", "dodge", "pass", "throw", "catch", "serve", "bounce", "bend", "shoot", "dribble",
@@ -116,8 +106,6 @@ def exlvl2():
         exarmsup()
         exlegs()
     return exscore2
-
-
 # The funtion is for the second level of exercise game
 
 def exlvl3():
@@ -146,9 +134,8 @@ def exlvl3():
         exarmsup()
         exlegs()
     return exscore3
-
-
 # The function for third level in exercise game
+
 screen.fill(black)
 Fexintro()
 pygame.init()
