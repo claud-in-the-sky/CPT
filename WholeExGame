@@ -45,7 +45,7 @@ def exarmsup():
     pygame.draw.line(screen, skin, [650, 300], [500, 200], 10)
     pygame.draw.line(screen, skin, [650, 300], [800, 200], 10)
     pygame.draw.circle(screen, skin, [500, 200], 20, 0)
-    pygame.draw.circle(screen, skin, [500, 280], 20, 0)
+    pygame.draw.circle(screen, skin, [800, 200], 20, 0)
 
 
 def Fexintro():
