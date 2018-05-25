@@ -26,346 +26,81 @@ G = (0, 255, 0)
 B = (0, 0, 255)
 W = (255, 255, 255)
 Br = (139, 69, 19)
-
-SIZE = [1350, 720]
-screen = pygame.display.set_mode(SIZE)
-
-dot_list = []
-dot_listbl = []
-dot_listg = []
-dot_listr = []
-dot_listb = []
-
-clock = pygame.time.Clock()
-
-for i in range(3):
-    clock.tick(20)
-    x = random.randrange(0, 1350)
-    y = random.randrange(0, 500)
-    dot_list.append([x, y])
-
-for i in range(3):
-    clock.tick(40)
-    x = random.randrange(0, 1350)
-    y = random.randrange(0, 500)
-    dot_listbl.append([x, y])
-
-for i in range(3):
-    clock.tick(40)
-    x = random.randrange(0, 1350)
-    y = random.randrange(0, 500)
-    dot_listr.append([x, y])
-
-for i in range(3):
-    clock.tick(40)
-    x = random.randrange(0, 1350)
-    y = random.randrange(0, 500)
-    dot_listg.append([x, y])
-
-for i in range(3):
-    clock.tick(40)
-    x = random.randrange(0, 1350)
-    y = random.randrange(0, 500)
-    dot_listb.append([x, y])
-
-bx = 650
-# Loop until the user clicks the close button.
-done = False
-while not done:
-
-    for event in pygame.event.get():  # User did something
-        if event.type == pygame.QUIT:  # If user clicked close
-            done = True  # Flag that we are done so we exit this loop
-
-    # Set the screen background
-    screen.fill(W)
-
-    # Process each snow flake in the list
-    for i in range(len(dot_listbl)):
-        pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)
-    for i in range(len(dot_listr)):
-        pygame.draw.circle(screen, R, dot_listr[i], 10, 0)
-    for i in range(len(dot_listg)):
-        pygame.draw.circle(screen, G, dot_listg[i], 10, 0)
-    for i in range(len(dot_listb)):
-        pygame.draw.circle(screen, B, dot_listb[i], 10, 0)
-        pygame.draw.arc(screen, Br, [bx, 625, 75, 75], math.pi, 0, 35)
-    for i in range(len(dot_list)):
-
-        # Move the snow flake down one pixel
-        dot_listbl[i][1] += 5
-        dot_listr[i][1] += 5
-        dot_listg[i][1] += 5
-        dot_listb[i][1] += 5
-
-        # If the snow flake has moved off the bottom of the screen
-        if dot_listbl[i][1] > 720:
-            # Reset it just above the top
-            y = random.randrange(-50, -10)
-            dot_list[i][1] = y
-            # Give it a new x position
-            x = random.randrange(0, 1350)
-            dot_list[i][0] = x
-        if dot_listr[i][1] > 720:
-            # Reset it just above the top
-            y = random.randrange(-50, -10)
-            dot_list[i][1] = y
-            # Give it a new x position
-            x = random.randrange(0, 1350)
-            dot_list[i][0] = x
-        if dot_listg[i][1] > 720:
-            # Reset it just above the top
-            y = random.randrange(-50, -10)
-            dot_list[i][1] = y
-            # Give it a new x position
-            x = random.randrange(0, 1350)
-            dot_list[i][0] = x
-        if dot_listb[i][1] > 720:
-            # Reset it just above the top
-            y = random.randrange(-50, -10)
-            dot_list[i][1] = y
-            # Give it a new x position
-            x = random.randrange(0, 1350)
-            dot_list[i][0] = x
-    if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_LEFT:
-            bx -= 15
-        if event.key == pygame.K_RIGHT:
-            bx += 15
-    if bx > 1250:
-        bx = 1250
-    if bx < 20:
-        bx = 20
-
-    # update the screen
-    pygame.display.flip()
-    clock.tick(20)
-
-pygame.quit()
-------------------------------------------------------------
-#  LVL 1
-import pygame
-import random
-import math
-
-pygame.init()
-
-Bl = (0, 0, 0)
-R = (255, 0, 0)
-G = (0, 255, 0)
-B = (0, 0, 255)
-W = (255, 255, 255)
-Br = (139, 69, 19)
-Sky = (176,224,230)
-
-SIZE = [1350, 720]
-screen = pygame.display.set_mode(SIZE)
-
-dot_list = []
-dot_listbl = []
-dot_listg = []
-dot_listr = []
-dot_listb = []
-
-clock = pygame.time.Clock()
-
-for i in range(3):
-    x = random.randrange(0, 1350)
-    y = random.randrange(0, 500)
-    dot_list.append([x, y])
-
-for i in range(3):
-    x = random.randrange(0, 1350)
-    y = random.randrange(0, 500)
-    dot_listbl.append([x, y])
-
-for i in range(3):
-    x = random.randrange(0, 1350)
-    y = random.randrange(0, 500)
-    dot_listr.append([x, y])
-
-for i in range(3):
-    x = random.randrange(0, 1350)
-    y = random.randrange(0, 500)
-    dot_listg.append([x, y])
-
-for i in range(3):
-    x = random.randrange(0, 1350)
-    y = random.randrange(0, 500)
-    dot_listb.append([x, y])
-
-bx = 650
-# Loop until the user clicks the close button.
-done = False
-while not done:
-
-    for event in pygame.event.get():  # User did something
-        if event.type == pygame.QUIT:  # If user clicked close
-            done = True  # Flag that we are done so we exit this loop
-
-    # Set the screen background
-    screen.fill(Sky)
-
-    # Process each snow flake in the list
-    for i in range(len(dot_listbl)):
-        black = pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)
-    for i in range(len(dot_listr)):
-        red = pygame.draw.circle(screen, R, dot_listr[i], 10, 0)
-    for i in range(len(dot_listg)):
-        green = pygame.draw.circle(screen, G, dot_listg[i], 10, 0)
-    for i in range(len(dot_listb)):
-        blue = pygame.draw.circle(screen, B, dot_listb[i], 10, 0)
-        basket = pygame.draw.arc(screen, Br, [bx, 625, 75, 75], math.pi, 0, 35)
-    for i in range(len(dot_list)):
-
-        # Move the snow flake down one pixel
-        dot_listbl[i][1] += 5
-        dot_listr[i][1] += 5
-        dot_listg[i][1] += 5
-        dot_listb[i][1] += 5
-
-        # If the snow flake has moved off the bottom of the screen
-        if dot_listbl[i][1] > 720:
-            # Reset it just above the top
-            y = random.randrange(-50, -10)
-            dot_list[i][1] = y
-            # Give it a new x position
-            x = random.randrange(0, 1350)
-            dot_list[i][0] = x
-        if dot_listr[i][1] > 720:
-            # Reset it just above the top
-            y = random.randrange(-50, -10)
-            dot_list[i][1] = y
-            # Give it a new x position
-            x = random.randrange(0, 1350)
-            dot_list[i][0] = x
-        if dot_listg[i][1] > 720:
-            # Reset it just above the top
-            y = random.randrange(-50, -10)
-            dot_list[i][1] = y
-            # Give it a new x position
-            x = random.randrange(0, 1350)
-            dot_list[i][0] = x
-        if dot_listb[i][1] > 720:
-            # Reset it just above the top
-            y = random.randrange(-50, -10)
-            dot_list[i][1] = y
-            # Give it a new x position
-            x = random.randrange(0, 1350)
-            dot_list[i][0] = x
-    if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_LEFT:
-            bx -= 15
-        if event.key == pygame.K_RIGHT:
-            bx += 15
-    if bx > 1250:
-        bx = 1250
-    if bx < 20:
-        bx = 2
-
-    eatscore = 0
-    toteatscore = 0
-    for i in basket:
-        if red or green or blue == basket:
-            eatscore += 2
-        elif black == basket:
-            eatscore -= 1
-    print(eatscore)
-    # update the screen
-    pygame.display.flip()
-    clock.tick(20)
-
-pygame.quit()
---------------------------------------------
-import pygame
-import random
-import math
-
-pygame.init()
-
-Bl = (0, 0, 0)
-R = (255, 0, 0)
-G = (0, 255, 0)
-B = (0, 0, 255)
-W = (255, 255, 255)
-Br = (139, 69, 19)
 Sky = (240,248,255)
 
 SIZE = [1350, 720]
 screen = pygame.display.set_mode(SIZE)
 
+dot_listr = []
+dot_listg = []
 dot_listb = []
+dot_listbl = []
 
 
 clock = pygame.time.Clock()
 
 bx = 650
+
+
+def red():
+    for i in range(3):
+        x = random.randrange(20, 1330)
+        y = random.randrange(0, 500)
+        dot_listr.append([x, y])
+        pygame.draw.circle(screen, R, dot_listr[i], 10, 0)
+        dot_listr[i][1] += 5
+        if dot_listr[i][1] > 720:
+            # Reset it just above the top
+            y = random.randrange(-50, -10)
+            dot_listr[i][1] = y
+            # Give it a new x position
+            x = random.randrange(0, 1350)
+            dot_listr[i][0] = x
+def green():
+    for i in range(3):
+        x = random.randrange(20, 1330)
+        y = random.randrange(0, 500)
+        dot_listg.append([x, y])
+        pygame.draw.circle(screen, G, dot_listg[i], 10, 0)
+        dot_listg[i][1] += 5
+        if dot_listg[i][1] > 720:
+            # Reset it just above the top
+            y = random.randrange(-50, -10)
+            dot_listg[i][1] = y
+            # Give it a new x position
+            x = random.randrange(0, 1350)
+            dot_listg[i][0] = x
 
 def blue():
     for i in range(3):
         x = random.randrange(20, 1330)
         y = random.randrange(0, 500)
         dot_listb.append([x, y])
-
-    for blue in range(len(dot_list)):
-        pygame.draw.circle(screen, B, dot_list[i], 10, 0)
-        dot_list[i][1] += 1
-        if dot_list[i][1] > 720:
+        pygame.draw.circle(screen, B, dot_listb[i], 10, 0)
+        dot_listb[i][1] += 5
+        if dot_listb[i][1] > 720:
             # Reset it just above the top
             y = random.randrange(-50, -10)
-            dot_list[i][1] = y
+            dot_listb[i][1] = y
             # Give it a new x position
             x = random.randrange(0, 1350)
-            dot_list[i][0] = x
+            dot_listb[i][0] = x
 
-def red():
-    for i in range(3):
-        x = random.randrange(20, 1330)
-        y = random.randrange(0, 500)
-        dot_list.append([x, y])
-
-    for red in range(len(dot_list)):
-        pygame.draw.circle(screen, R, dot_list[i], 10, 0)
-        dot_list[i][1] += 1
-        if dot_list[i][1] > 720:
-            # Reset it just above the top
-            y = random.randrange(-50, -10)
-            dot_list[i][1] = y
-            # Give it a new x position
-            x = random.randrange(0, 1350)
-            dot_list[i][0] = x
-def green():
-    for i in range(3):
-        x = random.randrange(20, 1330)
-        y = random.randrange(0, 500)
-        dot_list.append([x, y])
-
-    for green in range(len(dot_list)):
-        pygame.draw.circle(screen, G, dot_list[i], 10, 0)
-        dot_list[i][1] += 1
-        if dot_list[i][1] > 720:
-            # Reset it just above the top
-            y = random.randrange(-50, -10)
-            dot_list[i][1] = y
-            # Give it a new x position
-            x = random.randrange(0, 1350)
-            dot_list[i][0] = x
 def black():
     for i in range(3):
         x = random.randrange(20, 1330)
         y = random.randrange(0, 500)
-        dot_list.append([x, y])
+        dot_listbl.append([x, y])
+        pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)
+        dot_listbl[i][1] += 5
 
-    for black in range(len(dot_list)):
-        pygame.draw.circle(screen, Bl, dot_list[i], 10, 0)
-        dot_list[i][1] += 1
-        if dot_list[i][1] > 720:
+    if dot_listbl[i][1] > 720:
             # Reset it just above the top
-            y = random.randrange(-50, -10)
-            dot_list[i][1] = y
+        y = random.randrange(-50, -10)
+        dot_listbl[i][1] = y
             # Give it a new x position
-            x = random.randrange(0, 1350)
-            dot_list[i][0] = x
+        x = random.randrange(0, 1350)
+        dot_listbl[i][0] = x
 
 # Loop until the user clicks the close button.
 done = False
@@ -377,12 +112,10 @@ while not done:
 
     # Set the screen background
     screen.fill(Sky)
-
-    # Process each dot in the list
-    blue()
-    green()
-    red()
     black()
+    red()
+    green()
+    blue()
     pygame.draw.arc(screen, Br, [bx, 625, 75, 75], math.pi, 0, 35)
 
     if event.type == pygame.KEYDOWN:
