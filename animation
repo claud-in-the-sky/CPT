@@ -1,19 +1,3 @@
-#  for lvl1, remove red from list
-#  for lvl2, remove green from list
-#  for lvl3, add black to the list
-#  once eat_time (the timer) is finished 
-    #  end the game
-#  add 2 to eat_point (the score counter) each time the top of the arc (basket) touches a coloured dot
-#  deduct 1 from eat_point each time the top of the arc (basket) touches a black dot
-#  start with lvl1 --> has normal blue, red, green dots and less black dots
-#  once eat_point == 10
-    #  call lvl2 function
-#  once eat_point == 20
-    #  call lvl2 function
-#  once eat_point == 26
-    #  call lvl3 function
-----------------------------------------------------------------------
-#  LVL 1
 import pygame
 import random
 import math
@@ -48,10 +32,10 @@ def red():
         y = random.randrange(0, 500)
         dot_listr.append([x, y])
         pygame.draw.circle(screen, R, dot_listr[i], 10, 0)
-        dot_listr[i][1] += 5
+        dot_listr[i][1] += 4
         if dot_listr[i][1] > 720:
             # Reset it just above the top
-            y = random.randrange(-50, -10)
+            y = random.randrange(-100, 0)
             dot_listr[i][1] = y
             # Give it a new x position
             x = random.randrange(0, 1350)
@@ -62,10 +46,10 @@ def green():
         y = random.randrange(0, 500)
         dot_listg.append([x, y])
         pygame.draw.circle(screen, G, dot_listg[i], 10, 0)
-        dot_listg[i][1] += 5
+        dot_listg[i][1] += 4
         if dot_listg[i][1] > 720:
             # Reset it just above the top
-            y = random.randrange(-50, -10)
+            y = random.randrange(-100, 0)
             dot_listg[i][1] = y
             # Give it a new x position
             x = random.randrange(0, 1350)
@@ -77,10 +61,10 @@ def blue():
         y = random.randrange(0, 500)
         dot_listb.append([x, y])
         pygame.draw.circle(screen, B, dot_listb[i], 10, 0)
-        dot_listb[i][1] += 5
+        dot_listb[i][1] += 4
         if dot_listb[i][1] > 720:
             # Reset it just above the top
-            y = random.randrange(-50, -10)
+            y = random.randrange(-100, 0)
             dot_listb[i][1] = y
             # Give it a new x position
             x = random.randrange(0, 1350)
@@ -92,11 +76,11 @@ def black():
         y = random.randrange(0, 500)
         dot_listbl.append([x, y])
         pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)
-        dot_listbl[i][1] += 5
+        dot_listbl[i][1] += 4
 
     if dot_listbl[i][1] > 720:
             # Reset it just above the top
-        y = random.randrange(-50, -10)
+        y = random.randrange(-100, 0)
         dot_listbl[i][1] = y
             # Give it a new x position
         x = random.randrange(0, 1350)
@@ -120,9 +104,9 @@ while not done:
 
     if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_LEFT:
-            bx -= 15
+            bx -= 17
         if event.key == pygame.K_RIGHT:
-            bx += 15
+            bx += 17
     if bx > 1250:
         bx = 1250
     if bx < 20:
