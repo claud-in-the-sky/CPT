@@ -1,52 +1,12 @@
+import pygame
 import time
 import random
-import pygame
-import math
-
 pygame.init()
-skin = (255, 211, 155)
+red = (255,0,0)
 whites = (252, 252, 252)
 black = (3, 3, 3)
 SIZE = [1350, 720]
 screen = pygame.display.set_mode(SIZE)
-
-def exheadbody():
-    pygame.draw.circle(screen, skin, [650, 150], 100, 0)
-    pygame.draw.line(screen, skin, [650, 100], [650, 500], 30)
-    # The torso of the body
-
-def exfacehappy():
-    pygame.draw.circle(screen, black, [600, 150], 10, 0)
-    pygame.draw.circle(screen, black, [690, 150], 10, 0)
-    pygame.draw.arc(screen, black, [625, 150, 50, 50], math.pi, 0, 3)
-
-def exfacesad():
-    pygame.draw.circle(screen, black, [600, 150], 10, 0)
-    pygame.draw.circle(screen, black, [690, 150], 10, 0)
-    pygame.draw.arc(screen, black, [625, 150, 50, 50], 0, math.pi, 3)
-
-def exfacenorm():
-    pygame.draw.circle(screen, black, [600, 150], 10, 0)
-    pygame.draw.circle(screen, black, [690, 150], 10, 0)
-    pygame.draw.line(screen, black, [620, 175], [675, 175], 5)
-
-def exarms():
-    pygame.draw.line(screen, skin, [650, 250], [500, 400], 10)
-    pygame.draw.line(screen, skin, [650, 250], [800, 400], 10)
-    pygame.draw.circle(screen, skin, [500, 400], 20, 0)
-    pygame.draw.circle(screen, skin, [800, 400], 20, 0)
-    # Stick arms including the hands
-
-def exlegs():
-    pygame.draw.line(screen, skin, [645, 500], [600, 700], 20)
-    pygame.draw.line(screen, skin, [655, 500], [695, 700], 20)
-
-def exarmsup():
-    pygame.draw.line(screen, skin, [650, 300], [500, 200], 10)
-    pygame.draw.line(screen, skin, [650, 300], [800, 200], 10)
-    pygame.draw.circle(screen, skin, [500, 200], 20, 0)
-    pygame.draw.circle(screen, skin, [800, 200], 20, 0)
-
 
 def Fexintro():
     print(
@@ -60,92 +20,73 @@ def exlvl1():
     exscore1 = int(0)
     a = random.choice(words1)
     print(a)
-    exheadbody()
-    exfacenorm()
-    exarmsup()
-    exlegs()
     exuserinput = str(input())
     if exuserinput == a:
         exscore1 += 2
-        exheadbody()
-        exfacehappy()
-        exarmsup()
-        exlegs()
     else:
         exscore1 -= 1
-        exheadbody()
-        exfacesad()
-        exarmsup()
-        exlegs()
     return exscore1
 # The function is for the first level of the exercise game
 # exscore1 is the score from the first level of game
 
 def exlvl2():
-    words1 = ["run", "walk", "stretch", "jump", "jog", "duck", "hit", "crawl", "stand", "sit", "swing", "plank", "kick",
-              "punch", "crunch", "dodge", "pass", "throw", "catch", "serve", "bounce", "bend", "shoot", "dribble",
-              "hop", "skip", "kneel", "push", "pull", "swing", "lift", "squat"]
+    words1 = ["Run", "Walk", "stretCh", "jumP", "Jog", "DUck", "Hit", "cRawL", "sTaNd", "Sit", "swing", "PlaNk", "Kick",
+              "pUnCh", "cRunCh", "dOdge", "pAsS", "throw", "catch", "seRvE", "bOuNce", "bEnd", "shoot", "driBble",
+              "hOp", "skIp", "Kneel", "puSh", "pUll", "swIng", "lift", "sQuat"]
     exscore2 = int(0)
     a = random.choice(words1)
     print(a)
-    exheadbody()
-    exfacenorm()
-    exarmsup()
-    exlegs()   
     exuserinput = str(input())
     if exuserinput == a:
         exscore2 += 2
-        exheadbody()
-        exfacehappy()
-        exarmsup()
-        exlegs()
     else:
         exscore2 -= 1
-        exheadbody()
-        exfacesad()
-        exarmsup()
-        exlegs()
     return exscore2
 # The funtion is for the second level of exercise game
 
 def exlvl3():
-    words2 = ["jumping jack", "duck and roll", "scream to your teammate", "deep knee bend and breathe",
-              "aerobic exercises", "dance to the rhythm", "dance to the rhythm with a partner", "butterfly stroke",
-              "aggressively tackle your opponent", "row a canoe with a paddle", "outrun a cheetah",
-              "climb up a tree to get away from a bear", "lift legs up high to climb the mountain"]
+    words2 = ["JumpinG Jack", "Duck and Roll", "SCREAM to your teamMate", "Deep Knee Bend and Breathe",
+              "Aerobic ExeRcises", "Dance to the Rhythm", "Dance to The rhythm with a Partner", "Butterfly Stroke",
+              "AggresSivEly Tackle your Opponent", "Row a canoe With a Paddle", "Outrun a cheetah!!!",
+              "Climb uP a tree to get Away from a Bear", "Lift legs up High to Climb the Mountain"]
     exscore3 = int(0)
     b = random.choice(words2)
     print(b)
-    exheadbody()
-    exfacenorm()
-    exarmsup()
-    exlegs()  
     exuserinput = str(input())
     if exuserinput == b:
         exscore3 += 2
-        exheadbody()
-        exfacehappy()
-        exarmsup()
-        exlegs()
     else:
         exscore3 -= 1
-        exheadbody()
-        exfacesad()
-        exarmsup()
-        exlegs()
     return exscore3
-# The function for third level in exercise game
+def game():
+    Fexintro()
+    totexscore = int(0)
+    while totexscore <= 10:
+        totexscore += exlvl1()
+        print(totexscore)
+    while totexscore > 10 and totexscore <= 20:
+        totexscore += exlvl2()
+        print(totexscore)
+    while totexscore > 20:
+        totexscore += exlvl3()
+        print(totexscore)
 
-screen.fill(black)
-Fexintro()
-pygame.init()
+b = 800
+timesec = 33
 totexscore = int(0)
-while totexscore <= 10:
-    totexscore += exlvl1()
-    print(totexscore)
-while totexscore > 10 and totexscore <= 20:
-    totexscore += exlvl2()
-    print(totexscore)
-while totexscore > 20:
-    totexscore += exlvl3()
-    print(totexscore)
+
+done = False
+while not done:  #main program loop
+    for event in pygame.event.get(): #user did something
+        if event.type==pygame.QUIT:  #if user clicked close
+             done = True             # flag to exit loop
+    if timesec != 0:
+        screen.fill(whites)               #set the screen background colour
+        pygame.draw.rect(screen, red, [50, 50, b, 50])
+        b -= 25
+        pygame.display.flip()
+        timesec -= 1
+        time.sleep(1) #decreases bar for time every second
+    elif timesec == 0:
+        print("TIME'S UP!")
+        break
