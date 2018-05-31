@@ -1,16 +1,21 @@
-import pygame
+import pygame, sys
 import time
 import random
 pygame.init()
 red = (255,0,0)
 whites = (252, 252, 252)
 black = (3, 3, 3)
+
 SIZE = [1350, 720]
 screen = pygame.display.set_mode(SIZE)
-
 def Fexintro():
-    print(
-        "To exercise, copy the action word on the screen. If you get it right, 1 point will be added to your score. However, if you get it wrong, one point will be deducted from your score.")
+    basicfont = pygame.font.SysFont(None, 48)
+    text = basicfont.render('Copy the word on screen exactly to get points. Good Luck!', True, black, (255, 255, 255))
+    textrect = text.get_rect()
+    textrect.centerx = screen.get_rect().centerx
+    textrect.centery = screen.get_rect().centery
+    screen.blit(text, textrect)
+    pygame.display.update()
 # The intro function for the exercise game, played before game starts
 
 def exlvl1():
@@ -19,7 +24,15 @@ def exlvl1():
               "hop", "skip", "kneel", "push", "pull", "swing", "lift", "squat"]
     exscore1 = int(0)
     a = random.choice(words1)
-    print(a)
+
+    basicfont = pygame.font.SysFont(None, 48)
+    text = basicfont.render( a, True, black, (255, 255, 255))
+    textrect = text.get_rect()
+    textrect.centerx = screen.get_rect().centerx
+    textrect.centery = screen.get_rect().centery
+    screen.blit(text, textrect)
+    pygame.display.update()
+    
     exuserinput = str(input())
     if exuserinput == a:
         exscore1 += 2
@@ -35,7 +48,16 @@ def exlvl2():
               "hOp", "skIp", "Kneel", "puSh", "pUll", "swIng", "lift", "sQuat"]
     exscore2 = int(0)
     a = random.choice(words1)
-    print(a)
+    clock = pygame.time.Clock()
+
+    basicfont = pygame.font.SysFont(None, 48)
+    text = basicfont.render(a , True, black, (255, 255, 255))
+    textrect = text.get_rect()
+    textrect.centerx = screen.get_rect().centerx
+    textrect.centery = screen.get_rect().centery
+
+    screen.blit(text, textrect)
+    pygame.display.update()
     exuserinput = str(input())
     if exuserinput == a:
         exscore2 += 2
@@ -82,11 +104,12 @@ while not done:  #main program loop
              done = True             # flag to exit loop
     if timesec != 0:
         screen.fill(whites)               #set the screen background colour
+        exlvl1()
         pygame.draw.rect(screen, red, [50, 50, b, 50])
         b -= 25
         pygame.display.flip()
         timesec -= 1
-        time.sleep(1) #decreases bar for time every second
+        time.sleep(1)
     elif timesec == 0:
         print("TIME'S UP!")
         break
