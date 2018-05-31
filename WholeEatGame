@@ -95,7 +95,7 @@ def timer():
     start_time = 3636
 
     total_seconds = start_time - (frame_count // frame_rate)
-    
+
     if total_seconds < 0:
         total_seconds = 0
     minutes = total_seconds // 60
@@ -132,10 +132,10 @@ while not done:
         if event.key == pygame.K_RIGHT:
             bx += 14
     #  Make the basket stay on the screen
-    if bx > 1250:
-        bx = 1250
-    if bx < 20:
-        bx = 20
+    if bx > 1350:
+        bx = 0
+    if bx < 0:
+        bx = 1350
 
     pygame.display.flip()
     clock.tick(40)
