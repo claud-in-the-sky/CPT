@@ -30,7 +30,7 @@ bx = 650
 class basket(pygame.sprite.Sprite):
     def __init__(self, colour, width, height):
         super.__init__()
-        self.image = pygame.Surface([width, height])
+        self.image = pygame.Surface([20, 10])
         self.image.fill(Sky)
         self.image.set_colorkey(Sky)
         self.image = pygame.image.load("basket.png").convert_alpha()
