@@ -27,6 +27,25 @@ dot_listbl = []
 clock = pygame.time.Clock()
 
 bx = 650
+class basket(pygame.sprite.Sprite):
+    def __init__(self, colour, width, height):
+        super.__init__()
+        self.image = pygame.Surface([width, height])
+        self.image.fill(Sky)
+        self.image.set_colorkey(Sky)
+        self.image = pygame.image.load("basket.png").convert_alpha()
+        self.rect = self.image.get_rect()
+    def move(self):
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                bx -= 14
+            if event.key == pygame.K_RIGHT:
+                bx += 14
+        #  Make the basket stay on the screen
+        if bx > 1350:
+            bx = 0
+        if bx < 0:
+            bx = 1350
 
 #  function for red dots falling
 def red():
@@ -123,8 +142,7 @@ while not done:
     green()
     blue()
     timer()
-    #  Draw the basket
-    pygame.draw.arc(screen, Br, [bx, 625, 75, 75], math.pi, 0, 35)
+
     #  Move the basket
     if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_LEFT:
@@ -141,3 +159,4 @@ while not done:
     clock.tick(40)
 
 pygame.quit()
+#  http://www.101computing.net/pygame-how-to-control-your-sprite/
