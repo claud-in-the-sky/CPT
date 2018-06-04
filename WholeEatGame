@@ -160,3 +160,155 @@ while not done:
 
 pygame.quit()
 #  http://www.101computing.net/pygame-how-to-control-your-sprite/
+------------------------------------
+import pygame
+import random
+import math
+
+pygame.init()
+
+pygame.display.set_caption('Eat')
+
+#  define colours
+Bl = (0, 0, 0)
+R = (255, 0, 0)
+G = (0, 255, 0)
+B = (0, 0, 255)
+W = (255, 255, 255)
+Br = (139, 69, 19)
+Sky = (240,248,255)
+
+SIZE = [1350, 720]
+screen = pygame.display.set_mode(SIZE)
+
+
+#  empty list for coordinates of dots
+dot_listr = []
+dot_listg = []
+dot_listb = []
+dot_listbl = []
+
+clock = pygame.time.Clock()
+
+#  function for red dots falling
+def red():
+    for i in range(3):
+        x = random.randrange(20, 1330)
+        y = random.randrange(0, 500)
+        dot_listr.append([x, y])
+        pygame.draw.circle(screen, R, dot_listr[i], 10, 0)
+        dot_listr[i][1] += 4
+
+        if dot_listr[i][1] > 720:
+            y = random.randrange(-100, 0)
+            dot_listr[i][1] = y
+            x = random.randrange(0, 1350)
+            dot_listr[i][0] = x
+
+#  function for green dots falling
+def green():
+    for i in range(3):
+        x = random.randrange(20, 1330)
+        y = random.randrange(0, 500)
+        dot_listg.append([x, y])
+        pygame.draw.circle(screen, G, dot_listg[i], 10, 0)
+        dot_listg[i][1] += 4
+
+        if dot_listg[i][1] > 720:
+            y = random.randrange(-100, 0)
+            dot_listg[i][1] = y
+            x = random.randrange(0, 1350)
+            dot_listg[i][0] = x
+
+#  function for blue dots falling
+def blue():
+    for i in range(3):
+        x = random.randrange(20, 1330)
+        y = random.randrange(0, 500)
+        dot_listb.append([x, y])
+        pygame.draw.circle(screen, B, dot_listb[i], 10, 0)
+        dot_listb[i][1] += 4
+
+        if dot_listb[i][1] > 720:
+            y = random.randrange(-100, 0)
+            dot_listb[i][1] = y
+            x = random.randrange(0, 1350)
+            dot_listb[i][0] = x
+
+#  function for black dots falling
+def black():
+    for i in range(3):
+        x = random.randrange(20, 1330)
+        y = random.randrange(0, 500)
+        dot_listbl.append([x, y])
+        pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)
+        dot_listbl[i][1] += 4
+
+        if dot_listbl[i][1] > 720:
+            y = random.randrange(-100, 0)
+            dot_listbl[i][1] = y
+            x = random.randrange(0, 1350)
+            dot_listbl[i][0] = x
+
+def timer():
+    font = pygame.font.SysFont('Comic Sans MS', 25)
+    frame_count = pygame.time.get_ticks()
+    frame_rate = 17
+    start_time = 3636
+
+    total_seconds = start_time - (frame_count // frame_rate)
+
+    if total_seconds < 0:
+        total_seconds = 0
+    minutes = total_seconds // 60
+    seconds = total_seconds % 60
+    output_string = "Time left: {}".format(minutes)
+    text = font.render(output_string, True, (0, 0, 0))
+    screen.blit(text, [50, 50])
+    frame_count += 1
+
+    while minutes == 0:
+        pygame.quit()
+
+def moveRight(pixels):
+    rect.x += pixels
+
+def moveLeft(pixels):
+    self.rect.x -= pixels
+# Loop until the user clicks the close button.ert_alpha()
+done = False
+while not done:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            done = True
+
+    #  Set the screen background
+    screen.fill(Sky)
+    #  Run the functions
+    black()
+    red()
+    green()
+    blue()
+    timer()
+    bx = 650
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_LEFT:
+            bx -= 650
+        if event.key == pygame.K_RIGHT:
+            bx += 600
+        #  Make the basket stay on the screen
+    if bx > 1350:
+        bx = 0
+    if bx < 0:
+        bx = 1350
+    basket = pygame.sprite.Sprite()
+    basket.rect = pygame.Rect(0, 0, 75, 75)
+    basket.image = pygame.draw.arc(screen, Br, [bx, 625, 75, 75], math.pi, 0, 35)
+    basket.rect.x = bx
+    basket.rect.y = 625
+    pygame.display.flip()
+    clock.tick(40)
+
+pygame.quit()
+#   http://www.101computing.net/pygame-how-to-control-your-sprite/
+
