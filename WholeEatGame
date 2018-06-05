@@ -18,169 +18,7 @@ Sky = (240,248,255)
 SIZE = [1350, 720]
 screen = pygame.display.set_mode(SIZE)
 
-#  empty list for coordinates of dots
-dot_listr = []
-dot_listg = []
-dot_listb = []
-dot_listbl = []
-
-clock = pygame.time.Clock()
-
-bx = 650
-class basket(pygame.sprite.Sprite):
-    def __init__(self, colour, width, height):
-        super.__init__()
-        self.image = pygame.Surface([20, 10])
-        self.image.fill(Sky)
-        self.image.set_colorkey(Sky)
-        self.image = pygame.image.load("basket.png").convert_alpha()
-        self.rect = self.image.get_rect()
-    def move(self):
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                bx -= 14
-            if event.key == pygame.K_RIGHT:
-                bx += 14
-        #  Make the basket stay on the screen
-        if bx > 1350:
-            bx = 0
-        if bx < 0:
-            bx = 1350
-
-#  function for red dots falling
-def red():
-    for i in range(3):
-        x = random.randrange(20, 1330)
-        y = random.randrange(0, 500)
-        dot_listr.append([x, y])
-        pygame.draw.circle(screen, R, dot_listr[i], 10, 0)
-        dot_listr[i][1] += 4
-
-        if dot_listr[i][1] > 720:
-            y = random.randrange(-100, 0)
-            dot_listr[i][1] = y
-            x = random.randrange(0, 1350)
-            dot_listr[i][0] = x
-
-#  function for green dots falling
-def green():
-    for i in range(3):
-        x = random.randrange(20, 1330)
-        y = random.randrange(0, 500)
-        dot_listg.append([x, y])
-        pygame.draw.circle(screen, G, dot_listg[i], 10, 0)
-        dot_listg[i][1] += 4
-
-        if dot_listg[i][1] > 720:
-            y = random.randrange(-100, 0)
-            dot_listg[i][1] = y
-            x = random.randrange(0, 1350)
-            dot_listg[i][0] = x
-
-#  function for blue dots falling
-def blue():
-    for i in range(3):
-        x = random.randrange(20, 1330)
-        y = random.randrange(0, 500)
-        dot_listb.append([x, y])
-        pygame.draw.circle(screen, B, dot_listb[i], 10, 0)
-        dot_listb[i][1] += 4
-
-        if dot_listb[i][1] > 720:
-            y = random.randrange(-100, 0)
-            dot_listb[i][1] = y
-            x = random.randrange(0, 1350)
-            dot_listb[i][0] = x
-
-#  function for black dots falling
-def black():
-    for i in range(3):
-        x = random.randrange(20, 1330)
-        y = random.randrange(0, 500)
-        dot_listbl.append([x, y])
-        pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)
-        dot_listbl[i][1] += 4
-
-        if dot_listbl[i][1] > 720:
-            y = random.randrange(-100, 0)
-            dot_listbl[i][1] = y
-            x = random.randrange(0, 1350)
-            dot_listbl[i][0] = x
-
-def timer():
-    font = pygame.font.SysFont('Comic Sans MS', 25)
-    frame_count = pygame.time.get_ticks()
-    frame_rate = 17
-    start_time = 3636
-
-    total_seconds = start_time - (frame_count // frame_rate)
-
-    if total_seconds < 0:
-        total_seconds = 0
-    minutes = total_seconds // 60
-    seconds = total_seconds % 60
-    output_string = "Time left: {}".format(minutes)
-    text = font.render(output_string, True, (0, 0, 0))
-    screen.blit(text, [50, 50])
-    frame_count += 1
-
-    while minutes == 0:
-        pygame.quit()
-
-# Loop until the user clicks the close button.
-done = False
-while not done:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            done = True
-
-    #  Set the screen background
-    screen.fill(Sky)
-    #  Run the functions
-    black()
-    red()
-    green()
-    blue()
-    timer()
-
-    #  Move the basket
-    if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_LEFT:
-            bx -= 14
-        if event.key == pygame.K_RIGHT:
-            bx += 14
-    #  Make the basket stay on the screen
-    if bx > 1350:
-        bx = 0
-    if bx < 0:
-        bx = 1350
-
-    pygame.display.flip()
-    clock.tick(40)
-
-pygame.quit()
-#  http://www.101computing.net/pygame-how-to-control-your-sprite/
-------------------------------------
-import pygame
-import random
-import math
-
-pygame.init()
-
-pygame.display.set_caption('Eat')
-
-#  define colours
-Bl = (0, 0, 0)
-R = (255, 0, 0)
-G = (0, 255, 0)
-B = (0, 0, 255)
-W = (255, 255, 255)
-Br = (139, 69, 19)
-Sky = (240,248,255)
-
-SIZE = [1350, 720]
-screen = pygame.display.set_mode(SIZE)
-
+score = 0
 
 #  empty list for coordinates of dots
 dot_listr = []
@@ -191,64 +29,65 @@ dot_listbl = []
 clock = pygame.time.Clock()
 
 #  function for red dots falling
-def red():
-    for i in range(3):
-        x = random.randrange(20, 1330)
-        y = random.randrange(0, 500)
-        dot_listr.append([x, y])
-        pygame.draw.circle(screen, R, dot_listr[i], 10, 0)
-        dot_listr[i][1] += 4
 
-        if dot_listr[i][1] > 720:
-            y = random.randrange(-100, 0)
-            dot_listr[i][1] = y
-            x = random.randrange(0, 1350)
-            dot_listr[i][0] = x
+for i in range(3):
+    x = random.randrange(20, 1330)
+    y = random.randrange(0, 500)
+    dot_listr.append([x, y])
+    pygame.draw.circle(screen, R, dot_listr[i], 10, 0)
+    dot_listr[i][1] += 4
+
+    if dot_listr[i][1] > 720:
+        y = random.randrange(-100, 0)
+        dot_listr[i][1] = y
+        x = random.randrange(0, 1350)
+        dot_listr[i][0] = x
+
+
 
 #  function for green dots falling
-def green():
-    for i in range(3):
-        x = random.randrange(20, 1330)
-        y = random.randrange(0, 500)
-        dot_listg.append([x, y])
-        pygame.draw.circle(screen, G, dot_listg[i], 10, 0)
-        dot_listg[i][1] += 4
+for i in range(3):
+    x = random.randrange(20, 1330)
+    y = random.randrange(0, 500)
+    dot_listg.append([x, y])
+    pygame.draw.circle(screen, G, dot_listg[i], 10, 0)
+    dot_listg[i][1] += 4
 
-        if dot_listg[i][1] > 720:
-            y = random.randrange(-100, 0)
-            dot_listg[i][1] = y
-            x = random.randrange(0, 1350)
-            dot_listg[i][0] = x
+    if dot_listg[i][1] > 720:
+        y = random.randrange(-100, 0)
+        dot_listg[i][1] = y
+        x = random.randrange(0, 1350)
+        dot_listg[i][0] = x
 
 #  function for blue dots falling
-def blue():
-    for i in range(3):
-        x = random.randrange(20, 1330)
-        y = random.randrange(0, 500)
-        dot_listb.append([x, y])
-        pygame.draw.circle(screen, B, dot_listb[i], 10, 0)
-        dot_listb[i][1] += 4
 
-        if dot_listb[i][1] > 720:
-            y = random.randrange(-100, 0)
-            dot_listb[i][1] = y
-            x = random.randrange(0, 1350)
-            dot_listb[i][0] = x
+for i in range(3):
+    x = random.randrange(20, 1330)
+    y = random.randrange(0, 500)
+    dot_listb.append([x, y])
+    pygame.draw.circle(screen, B, dot_listb[i], 10, 0)
+    dot_listb[i][1] += 4
+
+    if dot_listb[i][1] > 720:
+        y = random.randrange(-100, 0)
+        dot_listb[i][1] = y
+        x = random.randrange(0, 1350)
+        dot_listb[i][0] = x
 
 #  function for black dots falling
-def black():
-    for i in range(3):
-        x = random.randrange(20, 1330)
-        y = random.randrange(0, 500)
-        dot_listbl.append([x, y])
-        pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)
-        dot_listbl[i][1] += 4
 
-        if dot_listbl[i][1] > 720:
-            y = random.randrange(-100, 0)
-            dot_listbl[i][1] = y
-            x = random.randrange(0, 1350)
-            dot_listbl[i][0] = x
+for i in range(3):
+    x = random.randrange(20, 1330)
+    y = random.randrange(0, 500)
+    dot_listbl.append([x, y])
+    pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)
+    dot_listbl[i][1] += 4
+
+    if dot_listbl[i][1] > 720:
+        y = random.randrange(-100, 0)
+        dot_listbl[i][1] = y
+        x = random.randrange(0, 1350)
+        dot_listbl[i][0] = x
 
 def timer():
     font = pygame.font.SysFont('Comic Sans MS', 25)
@@ -276,6 +115,7 @@ def moveRight(pixels):
 def moveLeft(pixels):
     self.rect.x -= pixels
 # Loop until the user clicks the close button.ert_alpha()
+bx = 650
 done = False
 while not done:
     for event in pygame.event.get():
@@ -285,17 +125,70 @@ while not done:
     #  Set the screen background
     screen.fill(Sky)
     #  Run the functions
-    black()
-    red()
-    green()
-    blue()
+
+    for i in range(3):
+        x = random.randrange(20, 1330)
+        y = random.randrange(0, 500)
+        dot_listr.append([x, y])
+        pygame.draw.circle(screen, R, dot_listr[i], 10, 0)
+        dot_listr[i][1] += 4
+
+        if dot_listr[i][1] > 720:
+            y = random.randrange(-100, 0)
+            dot_listr[i][1] = y
+            x = random.randrange(0, 1350)
+            dot_listr[i][0] = x
+
+    #  function for green dots falling
+    for i in range(3):
+        x = random.randrange(20, 1330)
+        y = random.randrange(0, 500)
+        dot_listg.append([x, y])
+        pygame.draw.circle(screen, G, dot_listg[i], 10, 0)
+        dot_listg[i][1] += 4
+
+        if dot_listg[i][1] > 720:
+            y = random.randrange(-100, 0)
+            dot_listg[i][1] = y
+            x = random.randrange(0, 1350)
+            dot_listg[i][0] = x
+
+    #  function for blue dots falling
+
+    for i in range(3):
+        x = random.randrange(20, 1330)
+        y = random.randrange(0, 500)
+        dot_listb.append([x, y])
+        pygame.draw.circle(screen, B, dot_listb[i], 10, 0)
+        dot_listb[i][1] += 4
+
+        if dot_listb[i][1] > 720:
+            y = random.randrange(-100, 0)
+            dot_listb[i][1] = y
+            x = random.randrange(0, 1350)
+            dot_listb[i][0] = x
+
+    #  function for black dots falling
+
+    for i in range(3):
+        x = random.randrange(20, 1330)
+        y = random.randrange(0, 500)
+        dot_listbl.append([x, y])
+        pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)
+        dot_listbl[i][1] += 4
+
+        if dot_listbl[i][1] > 720:
+            y = random.randrange(-100, 0)
+            dot_listbl[i][1] = y
+            x = random.randrange(0, 1350)
+            dot_listbl[i][0] = x
     timer()
-    bx = 650
+
     if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_LEFT:
-            bx -= 650
+            bx -= 14
         if event.key == pygame.K_RIGHT:
-            bx += 600
+            bx += 14
         #  Make the basket stay on the screen
     if bx > 1350:
         bx = 0
@@ -304,11 +197,23 @@ while not done:
     basket = pygame.sprite.Sprite()
     basket.rect = pygame.Rect(0, 0, 75, 75)
     basket.image = pygame.draw.arc(screen, Br, [bx, 625, 75, 75], math.pi, 0, 35)
-    basket.rect.x = bx
-    basket.rect.y = 625
+
+    pygame.Rect.colliderect()
+    if pygame.Rect(basket.image) == pygame.Rect(pygame.draw.circle(screen, R, dot_listr[i], 10, 0)):
+        score += 2
+    if pygame.Rect(basket.image) == pygame.Rect(pygame.draw.circle(screen, G, dot_listg[i], 10, 0)):
+        score += 2
+    if pygame.Rect(basket.image) == pygame.Rect(pygame.draw.circle(screen, B, dot_listb[i], 10, 0)):
+        score += 2
+    if pygame.Rect(basket.image) == pygame.Rect(pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)):
+        score -= 1
+    print (score)
+
+
+
+
     pygame.display.flip()
     clock.tick(40)
 
 pygame.quit()
 #   http://www.101computing.net/pygame-how-to-control-your-sprite/
-
