@@ -109,11 +109,6 @@ def timer():
     while minutes == 0:
         pygame.quit()
 
-def moveRight(pixels):
-    rect.x += pixels
-
-def moveLeft(pixels):
-    self.rect.x -= pixels
 # Loop until the user clicks the close button.ert_alpha()
 bx = 650
 done = False
@@ -182,6 +177,7 @@ while not done:
             dot_listbl[i][1] = y
             x = random.randrange(0, 1350)
             dot_listbl[i][0] = x
+
     timer()
 
     if event.type == pygame.KEYDOWN:
@@ -194,26 +190,26 @@ while not done:
         bx = 0
     if bx < 0:
         bx = 1350
+
     basket = pygame.sprite.Sprite()
     basket.rect = pygame.Rect(0, 0, 75, 75)
     basket.image = pygame.draw.arc(screen, Br, [bx, 625, 75, 75], math.pi, 0, 35)
 
-    pygame.Rect.colliderect()
-    if pygame.Rect(basket.image) == pygame.Rect(pygame.draw.circle(screen, R, dot_listr[i], 10, 0)):
+    rrr = pygame.Rect.colliderect(pygame.Rect(basket.image), pygame.Rect(pygame.draw.circle(screen, R, dot_listr[i], 10, 0)))
+    if rrr == True:
+        score +=2
+    ggg = pygame.Rect.colliderect(pygame.Rect(basket.image), pygame.Rect(pygame.draw.circle(screen, B, dot_listb[i], 10, 0)))
+    if ggg == True:
         score += 2
-    if pygame.Rect(basket.image) == pygame.Rect(pygame.draw.circle(screen, G, dot_listg[i], 10, 0)):
+    bbb = pygame.Rect.colliderect(pygame.Rect(basket.image), pygame.Rect(pygame.draw.circle(screen, B, dot_listb[i], 10, 0)))
+    if bbb == True:
         score += 2
-    if pygame.Rect(basket.image) == pygame.Rect(pygame.draw.circle(screen, B, dot_listb[i], 10, 0)):
-        score += 2
-    if pygame.Rect(basket.image) == pygame.Rect(pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)):
+    bll = pygame.Rect.colliderect(pygame.Rect(basket.image), pygame.Rect(pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)))
+    if bll == True:
         score -= 1
-    print (score)
-
-
 
 
     pygame.display.flip()
     clock.tick(40)
-
+print (score)
 pygame.quit()
-#   http://www.101computing.net/pygame-how-to-control-your-sprite/
