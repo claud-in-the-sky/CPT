@@ -49,9 +49,9 @@ def timer():
 
 def intro():
     font = pygame.font.SysFont('Comic Sans MS', 25)
-    output_string = "avoid the falling dots!"
+    output_string = "avoid the falling dots! Collect black dots to lessen your score, the smaller the score, the better."
     text = font.render(output_string, True, (0, 0, 0))
-    screen.blit(text, [100, 100])
+    screen.blit(text, [350, 50])
 
 
 bx = 650
@@ -66,9 +66,9 @@ while not done:
 
     if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_LEFT:
-            bx -= 10
+            bx -= 5
         if event.key == pygame.K_RIGHT:
-            bx += 10
+            bx += 5
 
     if bx > 1350:
         bx = 0
@@ -130,7 +130,7 @@ while not done:
             score += 1
 
     # black dots falling
-    for i in range(3):
+    for i in range(2):
         x = random.randrange(20, 1330)
         y = random.randrange(0, 500)
         dot_listbl.append([x, y])
@@ -146,15 +146,17 @@ while not done:
             score -= 1
 
     timer()
-
+    intro()
     font = pygame.font.SysFont('Comic Sans MS', 25)
     output_string = "score: " + str(score)
     text = font.render(output_string, True, (0, 0, 0))
     screen.blit(text, [50, 100])
 
     pygame.display.flip()
-    clock.tick(40)
-totscore = score // 11
-print(totscore)
+    clock.tick(100)
+
+    if score < -22:
+
+
 
 pygame.quit()
