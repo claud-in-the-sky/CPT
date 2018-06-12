@@ -26,27 +26,6 @@ dot_listb = []
 dot_listbl = []
 clock = pygame.time.Clock()
 
-
-# function for red dots falling
-
-def timer():
-    font = pygame.font.SysFont('Comic Sans MS', 25)
-    frame_count = pygame.time.get_ticks()
-    frame_rate = 17
-    start_time = 1818
-    total_seconds = start_time - (frame_count // frame_rate)
-    if total_seconds < 0:
-        total_seconds = 0
-    minutes = total_seconds // 60
-    seconds = total_seconds % 60
-    output_string = "Time left: {}".format(minutes)
-    text = font.render(output_string, True, (0, 0, 0))
-    screen.blit(text, [50, 50])
-    frame_count += 1
-    while minutes == 0:
-        pygame.quit()
-
-
 def intro():
     font = pygame.font.SysFont('Comic Sans MS', 25)
     output_string = "avoid the falling dots! Collect black dots to lessen your score, the smaller the score, the better."
@@ -60,6 +39,28 @@ while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+
+    font = pygame.font.SysFont('Comic Sans MS', 25)
+    frame_count = pygame.time.get_ticks()
+    frame_rate = 17
+    start_time = 3636
+    total_seconds = start_time - (frame_count // frame_rate)
+    if total_seconds < 0:
+        total_seconds = 0
+    minutes = total_seconds // 60
+    seconds = total_seconds % 60
+    output_string = "Time left: {}".format(minutes)
+    text = font.render(output_string, True, (0, 0, 0))
+    screen.blit(text, [50, 50])
+    frame_count += 1
+    while minutes == 0:
+        pygame.quit()
+    if minutes >30:
+        ds = 5
+    if minutes < 30:
+        ds = 7
+    if minutes < 10:
+        ds = 10
 
     # Set the screen background
     screen.fill(Sky)
@@ -79,14 +80,13 @@ while not done:
     basket.rect = pygame.Rect(0, 0, 75, 75)
     basket.image = pygame.draw.rect(screen, Br, [bx, 675, 75, 25], 0)
 
-
     #  red dots falling
     for i in range(5):
         x = random.randrange(20, 1330)
         y = random.randrange(0, 500)
         dot_listr.append([x, y])
         pygame.draw.circle(screen, R, dot_listr[i], 10, 0)
-        dot_listr[i][1] += 4
+        dot_listr[i][1] += ds
         if dot_listr[i][1] > 720:
             y = random.randrange(-100, 0)
             dot_listr[i][1] = y
@@ -95,7 +95,7 @@ while not done:
         rrr = pygame.Rect.colliderect(pygame.Rect(basket.image), pygame.Rect(pygame.draw.circle(screen, R, dot_listr[i], 10, 0)))
         if rrr == True:
             pygame.Rect(pygame.draw.circle(screen, R, dot_listr[i], 10, 0))
-            score += 1
+            score -= 1
 
     # green dots falling
     for i in range(5):
@@ -103,7 +103,7 @@ while not done:
         y = random.randrange(0, 500)
         dot_listg.append([x, y])
         pygame.draw.circle(screen, G, dot_listg[i], 10, 0)
-        dot_listg[i][1] += 4
+        dot_listg[i][1] += ds
         if dot_listg[i][1] > 720:
             y = random.randrange(-100, 0)
             dot_listg[i][1] = y
@@ -111,7 +111,7 @@ while not done:
             dot_listg[i][0] = x
         ggg = pygame.Rect.colliderect(pygame.Rect(basket.image), pygame.Rect(pygame.draw.circle(screen, G, dot_listg[i], 10, 0)))
         if ggg == True:
-            score += 1
+            score -= 1
 
     # blue dots falling
     for i in range(5):
@@ -119,7 +119,7 @@ while not done:
         y = random.randrange(0, 500)
         dot_listb.append([x, y])
         pygame.draw.circle(screen, B, dot_listb[i], 10, 0)
-        dot_listb[i][1] += 4
+        dot_listb[i][1] += ds
         if dot_listb[i][1] > 720:
             y = random.randrange(-100, 0)
             dot_listb[i][1] = y
@@ -127,7 +127,7 @@ while not done:
             dot_listb[i][0] = x
         bbb = pygame.Rect.colliderect(pygame.Rect(basket.image), pygame.Rect(pygame.draw.circle(screen, B, dot_listb[i], 10, 0)))
         if bbb == True:
-            score += 1
+            score -= 1
 
     # black dots falling
     for i in range(2):
@@ -135,7 +135,7 @@ while not done:
         y = random.randrange(0, 500)
         dot_listbl.append([x, y])
         pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)
-        dot_listbl[i][1] += 4
+        dot_listbl[i][1] += ds
         if dot_listbl[i][1] > 720:
             y = random.randrange(-100, 0)
             dot_listbl[i][1] = y
@@ -143,9 +143,8 @@ while not done:
             dot_listbl[i][0] = x
         bll = pygame.Rect.colliderect(pygame.Rect(basket.image), pygame.Rect(pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)))
         if bll == True:
-            score -= 1
+            score += 1
 
-    timer()
     intro()
     font = pygame.font.SysFont('Comic Sans MS', 25)
     output_string = "score: " + str(score)
@@ -153,10 +152,6 @@ while not done:
     screen.blit(text, [50, 100])
 
     pygame.display.flip()
-    clock.tick(100)
-
-    if score < -22:
-
-
+    clock.tick(200)
 
 pygame.quit()
