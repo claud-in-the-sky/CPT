@@ -34,16 +34,7 @@ def intro():
     text = font.render(output_string, True, (0, 0, 0))
     screen.blit(text, [350, 50])
 
-#  variable for x coordinate of basket
-bx = 650
-
-#  main loop?
-done = False
-while not done:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            done = True
-    #  timer
+def timer():
     font = pygame.font.SysFont('Comic Sans MS', 25)
     frame_count = pygame.time.get_ticks()
     frame_rate = 17
@@ -61,10 +52,35 @@ while not done:
     while minutes == 0:
         pygame.quit()
 
+#  variable for x coordinate of basket
+bx = 650
+
+#  main loop?
+done = False
+while not done:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            done = True
+    font = pygame.font.SysFont('Comic Sans MS', 25)
+    frame_count = pygame.time.get_ticks()
+    frame_rate = 17
+    start_time = 1818
+    total_seconds = start_time - (frame_count // frame_rate)
+    if total_seconds < 0:
+        total_seconds = 0
+    minutes = total_seconds // 60
+    seconds = total_seconds % 60
+    output_string = "Time left: {}".format(minutes)
+    text = font.render(output_string, True, (0, 0, 0))
+    screen.blit(text, [50, 50])
+    frame_count += 1
+    #  will close game once time runs out
+    while minutes == 0:
+        pygame.quit()
     #  changes speed of dots falling as time decreases (for the levels)
-    if minutes > 30:
-        ds = 5
     if minutes < 30:
+        ds = 5
+    if minutes < 20:
         ds = 7
     if minutes < 10:
         ds = 9
@@ -161,14 +177,20 @@ while not done:
         bll = pygame.Rect.colliderect(pygame.Rect(basket.image), pygame.Rect(pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)))
         if bll == True:
             score += 1
-    #  runs ntro
+    #  runs intro
     intro()
+    timer()
+
+    if score >= 20 and score <30:
+        ds = 20
+    if score >= 30:
+        ds = 50
     font = pygame.font.SysFont('Comic Sans MS', 25)
     output_string = "score: " + str(score)
     text = font.render(output_string, True, (0, 0, 0))
     screen.blit(text, [50, 100])
 
     pygame.display.flip()
-    clock.tick(50)
+    clock.tick(200)
 
 pygame.quit()
