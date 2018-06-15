@@ -6,6 +6,7 @@ pygame.init()
 SIZE = [1350, 720]
 screen = pygame.display.set_mode(SIZE)
 
+#  main screen
 image = pygame.image.load('mainn.jpg')
 screen.blit(image, (0,0))
 
@@ -19,13 +20,13 @@ while not done:
         if event.key == pygame.K_SPACE:
             image = pygame.image.load('main2.jpg')
             screen.blit(image, (0,0))
+        #  loads the first minigame
         if event.key == pygame.K_1:
             import pygame
             import random
             import math
 
             pygame.init()
-            pygame.display.set_caption('Eat')
 
             # define colours
             Bl = (0, 0, 0)
@@ -50,7 +51,7 @@ while not done:
             clock = pygame.time.Clock()
 
 
-            def timer():
+            def timer():  #  timer for the minigame
                 font = pygame.font.SysFont('Comic Sans MS', 25)
                 frame_count = pygame.time.get_ticks()
                 frame_rate = 17
@@ -65,9 +66,13 @@ while not done:
                 screen.blit(text, [50, 50])
                 frame_count += 1
                 #  will close game once time runs out
-                while minutes == 0:
-                    pygame.quit()
-
+                if minutes == 0:
+                    if score <= 50:
+                        image = pygame.image.load('stick.jpg')
+                        screen.blit(image, (0, 0))
+                    if score > 50:
+                        image = pygame.image.load('buff.jpg')
+                        screen.blit(image, (0, 0))
 
             #  variable for x coordinate of basket
             bx = 650
@@ -92,8 +97,13 @@ while not done:
                 screen.blit(text, [50, 50])
                 frame_count += 1
                 #  will close game once time runs out
-                while minutes == 0:
-                    pygame.quit()
+                if minutes == 0:
+                    if score <= 25:
+                        image = pygame.image.load('stick.jpg')
+                        screen.blit(image, (0, 0))
+                    if score > 25:
+                        image = pygame.image.load('buff.jpg')
+                        screen.blit(image, (0, 0))
                 #  changes speed of dots falling as time decreases (for the levels)
                 if minutes < 30:
                     ds = 5
@@ -108,312 +118,189 @@ while not done:
                 #  moves the basket
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
-                        bx -= 5
+                        bx -= 8
                     if event.key == pygame.K_RIGHT:
-                        bx += 5
-import pygame
-import random
-import math
+                        bx += 8
 
-pygame.init()
-pygame.display.set_caption('Eat')
+                    #  prevents basket from disappearing
+                    if bx > 1350:
+                        bx = 0
+                    if bx < 0:
+                        bx = 1350
 
-# define colours
-Bl = (0, 0, 0)
-R = (255, 0, 0)
-G = (0, 255, 0)
-B = (0, 0, 255)
-W = (255, 255, 255)
-Br = (139, 69, 19)
-Sky = (240, 248, 255)
+                basket = pygame.sprite.Sprite()
+                basket.rect = pygame.Rect(0, 0, 75, 75)
+                basket.image = pygame.draw.rect(screen, Br, [bx, 675, 75, 25], 0)
 
-#  screen
-SIZE = [1350, 720]
-screen = pygame.display.set_mode(SIZE)
+                #  red dots falling
+                for i in range(5):
+                    x = random.randrange(20, 1330)
+                    y = random.randrange(0, 500)
+                    dot_listr.append([x, y])
+                    pygame.draw.circle(screen, R, dot_listr[i], 10, 0)
+                    dot_listr[i][1] += ds
+                    #  once dot falls off screen, will reappear at top of screen at a different position
+                    if dot_listr[i][1] > 720:
+                        y = random.randrange(-100, 0)
+                        dot_listr[i][1] = y
+                        x = random.randrange(0, 1350)
+                        dot_listr[i][0] = x
+                    #  collision detection
+                    rrr = pygame.Rect.colliderect(pygame.Rect(basket.image),
+                                                  pygame.Rect(pygame.draw.circle(screen, R, dot_listr[i], 10, 0)))
+                    if rrr == True:
+                        pygame.Rect(pygame.draw.circle(screen, R, dot_listr[i], 10, 0))
+                        score -= 1
 
-score = 0
+                # green dots falling
+                for i in range(5):
+                    x = random.randrange(20, 1330)
+                    y = random.randrange(0, 500)
+                    dot_listg.append([x, y])
+                    pygame.draw.circle(screen, G, dot_listg[i], 10, 0)
+                    dot_listg[i][1] += ds
+                    #  once dot falls off screen, will reappear at top of screen at a different position
+                    if dot_listg[i][1] > 720:
+                        y = random.randrange(-100, 0)
+                        dot_listg[i][1] = y
+                        x = random.randrange(0, 1350)
+                        dot_listg[i][0] = x
+                    #  collision detection
+                    ggg = pygame.Rect.colliderect(pygame.Rect(basket.image),
+                                                  pygame.Rect(pygame.draw.circle(screen, G, dot_listg[i], 10, 0)))
+                    if ggg == True:
+                        score -= 1
 
-#  empty list for coordinates of dots
-dot_listr = []
-dot_listg = []
-dot_listb = []
-dot_listbl = []
-clock = pygame.time.Clock()
+                # blue dots falling
+                for i in range(5):
+                    x = random.randrange(20, 1330)
+                    y = random.randrange(0, 500)
+                    dot_listb.append([x, y])
+                    pygame.draw.circle(screen, B, dot_listb[i], 10, 0)
+                    dot_listb[i][1] += ds
+                    #  once dot falls off screen, will reappear at top of screen at a different position
+                    if dot_listb[i][1] > 720:
+                        y = random.randrange(-100, 0)
+                        dot_listb[i][1] = y
+                        x = random.randrange(0, 1350)
+                        dot_listb[i][0] = x
+                    #  collision detection
+                    bbb = pygame.Rect.colliderect(pygame.Rect(basket.image),
+                                                  pygame.Rect(pygame.draw.circle(screen, B, dot_listb[i], 10, 0)))
+                    if bbb == True:
+                        score -= 1
 
-#  shows the instructions
-def intro():
-    font = pygame.font.SysFont('Comic Sans MS', 25)
-    output_string = "avoid the falling dots! Collect black dots to lessen your score, the smaller the score, the better."
-    text = font.render(output_string, True, (0, 0, 0))
-    screen.blit(text, [350, 50])
+                # black dots falling
+                for i in range(5):
+                    x = random.randrange(20, 1330)
+                    y = random.randrange(0, 500)
+                    dot_listbl.append([x, y])
+                    pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)
+                    dot_listbl[i][1] += ds
+                    #  once dot falls off screen, will reappear at top of screen at a different position
+                    if dot_listbl[i][1] > 720:
+                        y = random.randrange(-100, 0)
+                        dot_listbl[i][1] = y
+                        x = random.randrange(0, 1350)
+                        dot_listbl[i][0] = x
+                    #  collision detection
+                    bll = pygame.Rect.colliderect(pygame.Rect(basket.image),
+                                                  pygame.Rect(pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)))
+                    if bll == True:
+                        score += 1
 
-def timer():
-    font = pygame.font.SysFont('Comic Sans MS', 25)
-    frame_count = pygame.time.get_ticks()
-    frame_rate = 17
-    start_time = 1818
-    total_seconds = start_time - (frame_count // frame_rate)
-    if total_seconds < 0:
-        total_seconds = 0
-    minutes = total_seconds // 60
-    seconds = total_seconds % 60
-    output_string = "Time left: {}".format(minutes)
-    text = font.render(output_string, True, (0, 0, 0))
-    screen.blit(text, [50, 50])
-    frame_count += 1
-    #  will close game once time runs out
-    while minutes == 0:
-        pygame.quit()
+                timer()
 
-#  variable for x coordinate of basket
-bx = 650
-
-#  main loop?
-done = False
-while not done:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            done = True
-    font = pygame.font.SysFont('Comic Sans MS', 25)
-    frame_count = pygame.time.get_ticks()
-    frame_rate = 17
-    start_time = 1818
-    total_seconds = start_time - (frame_count // frame_rate)
-    if total_seconds < 0:
-        total_seconds = 0
-    minutes = total_seconds // 60
-    seconds = total_seconds % 60
-    output_string = "Time left: {}".format(minutes)
-    text = font.render(output_string, True, (0, 0, 0))
-    screen.blit(text, [50, 50])
-    frame_count += 1
-    #  will close game once time runs out
-    while minutes == 0:
-        pygame.quit()
-    #  changes speed of dots falling as time decreases (for the levels)
-    if minutes < 30:
-        ds = 5
-    if minutes < 20:
-        ds = 7
-    if minutes < 10:
-        ds = 9
-
-    # Set the screen background
-    screen.fill(Sky)
-
-    #  moves the basket
-    if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_LEFT:
-            bx -= 5
-        if event.key == pygame.K_RIGHT:
-            bx += 5
-    #  prevents basket from disappearing
-    if bx > 1350:
-        bx = 0
-    if bx < 0:
-        bx = 1350
-
-    #  create basket
-    basket = pygame.sprite.Sprite()
-    basket.rect = pygame.Rect(0, 0, 75, 75)
-    basket.image = pygame.draw.rect(screen, Br, [bx, 675, 75, 25], 0)
-
-    #  red dots falling
-    for i in range(5):
-        x = random.randrange(20, 1330)
-        y = random.randrange(0, 500)
-        dot_listr.append([x, y])
-        pygame.draw.circle(screen, R, dot_listr[i], 10, 0)
-        dot_listr[i][1] += ds
-        #  once dot falls off screen, will reappear at top of screen at a different position
-        if dot_listr[i][1] > 720:
-            y = random.randrange(-100, 0)
-            dot_listr[i][1] = y
-            x = random.randrange(0, 1350)
-            dot_listr[i][0] = x
-        #  collision detection
-        rrr = pygame.Rect.colliderect(pygame.Rect(basket.image), pygame.Rect(pygame.draw.circle(screen, R, dot_listr[i], 10, 0)))
-        if rrr == True:
-            pygame.Rect(pygame.draw.circle(screen, R, dot_listr[i], 10, 0))
-            score -= 1
-
-    # green dots falling
-    for i in range(5):
-        x = random.randrange(20, 1330)
-        y = random.randrange(0, 500)
-        dot_listg.append([x, y])
-        pygame.draw.circle(screen, G, dot_listg[i], 10, 0)
-        dot_listg[i][1] += ds
-        #  once dot falls off screen, will reappear at top of screen at a different position
-        if dot_listg[i][1] > 720:
-            y = random.randrange(-100, 0)
-            dot_listg[i][1] = y
-            x = random.randrange(0, 1350)
-            dot_listg[i][0] = x
-        #  collision detection
-        ggg = pygame.Rect.colliderect(pygame.Rect(basket.image), pygame.Rect(pygame.draw.circle(screen, G, dot_listg[i], 10, 0)))
-        if ggg == True:
-            score -= 1
-
-    # blue dots falling
-    for i in range(5):
-        x = random.randrange(20, 1330)
-        y = random.randrange(0, 500)
-        dot_listb.append([x, y])
-        pygame.draw.circle(screen, B, dot_listb[i], 10, 0)
-        dot_listb[i][1] += ds
-        #  once dot falls off screen, will reappear at top of screen at a different position
-        if dot_listb[i][1] > 720:
-            y = random.randrange(-100, 0)
-            dot_listb[i][1] = y
-            x = random.randrange(0, 1350)
-            dot_listb[i][0] = x
-        #  collision detection
-        bbb = pygame.Rect.colliderect(pygame.Rect(basket.image), pygame.Rect(pygame.draw.circle(screen, B, dot_listb[i], 10, 0)))
-        if bbb == True:
-            score -= 1
-
-    # black dots falling
-    for i in range(5):
-        x = random.randrange(20, 1330)
-        y = random.randrange(0, 500)
-        dot_listbl.append([x, y])
-        pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)
-        dot_listbl[i][1] += ds
-        #  once dot falls off screen, will reappear at top of screen at a different position
-        if dot_listbl[i][1] > 720:
-            y = random.randrange(-100, 0)
-            dot_listbl[i][1] = y
-            x = random.randrange(0, 1350)
-            dot_listbl[i][0] = x
-        #  collision detection
-        bll = pygame.Rect.colliderect(pygame.Rect(basket.image), pygame.Rect(pygame.draw.circle(screen, Bl, dot_listbl[i], 10, 0)))
-        if bll == True:
-            score += 1
-    #  runs intro
-    timer()
-
-    if score >= 20 and score <30:
-        ds = 20
-    if score >= 30:
-        ds = 50
-    font = pygame.font.SysFont('Comic Sans MS', 25)
-    output_string = "score: " + str(score)
-    text = font.render(output_string, True, (0, 0, 0))
-    screen.blit(text, [50, 100])
-
-    pygame.display.flip()
-    clock.tick(200)
-
-    if event.key == pygame.K_2:
-        done = False
-        while not done:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    done = True
-
-            red = (255, 0, 0)
-            whites = (252, 252, 252)
-            black = (3, 3, 3)
-            skin = (255, 211, 155)
-
-            SIZE = [1350, 720]
-            screen = pygame.display.set_mode(SIZE)
-
-
-            def Fexintro():  # Shows instructions on game
-                basicfont = pygame.font.SysFont(None, 30)
-                text = basicfont.render('Press SPACE and try to do as many jumping jacks. Good Luck!', True, black,
-                                        whites)
-                textrect = text.get_rect()
-                textrect.centerx = screen.get_rect().centerx
-                screen.blit(text, textrect)
-                pygame.display.update()
-
-
-            def exheadbody():
-                pygame.draw.circle(screen, skin, [650, 150], 100, 0)
-                pygame.draw.line(screen, skin, [650, 100], [650, 500], 30)
-                # The torso of the body
-                pygame.draw.circle(screen, black, [600, 150], 10, 0)
-                pygame.draw.circle(screen, black, [690, 150], 10, 0)
-                pygame.draw.line(screen, black, [620, 175], [675, 175], 5)
-                # The face of the person
-
-
-            def exheadbodyup():
-                pygame.draw.circle(screen, skin, [650, 100], 100, 0)
-                pygame.draw.line(screen, skin, [650, 100], [650, 500], 30)
-                # The torso of the body
-                pygame.draw.circle(screen, black, [600, 100], 10, 0)
-                pygame.draw.circle(screen, black, [690, 100], 10, 0)
-                pygame.draw.line(screen, black, [620, 125], [675, 125], 5)
-                # The face of body when space is pressed
-
-
-            def exarms():
-                pygame.draw.line(screen, skin, [650, 300], [500, 400], 10)
-                pygame.draw.line(screen, skin, [650, 300], [800, 400], 10)
-                pygame.draw.circle(screen, skin, [500, 400], 20, 0)
-                pygame.draw.circle(screen, skin, [800, 400], 20, 0)
-                # Stick arms including the hands when key_up
-
-
-            def exarmsup():
-                pygame.draw.line(screen, skin, [650, 350], [500, 200], 10)
-                pygame.draw.line(screen, skin, [650, 350], [800, 200], 10)
-                pygame.draw.circle(screen, skin, [500, 200], 20, 0)
-                pygame.draw.circle(screen, skin, [800, 200], 20, 0)
-                # Stick arms including the hands when key_down
-
-
-            def exlegs():
-                pygame.draw.line(screen, skin, [645, 500], [600, 700], 20)
-                pygame.draw.line(screen, skin, [655, 500], [695, 700], 20)
-                # Stick legs when key_up
-
-
-            def exlegsopen():
-                pygame.draw.line(screen, skin, [645, 500], [500, 700], 20)
-                pygame.draw.line(screen, skin, [655, 500], [795, 700], 20)
-                # Stick legs when key_down
-
-            totexscore = int(0)  # Total score count
-            def timer():
                 font = pygame.font.SysFont('Comic Sans MS', 25)
-                frame_count = pygame.time.get_ticks()
-                frame_rate = 17
-                start_time = 1950  # Set to 30 seconds
-
-                total_seconds = start_time - (frame_count // frame_rate)
-
-                if total_seconds < 0:
-                    total_seconds = 0
-                minutes = total_seconds // 60
-                seconds = total_seconds % 60
-                output_string = "Time left: {}".format(minutes)
+                output_string = "score: " + str(score)
                 text = font.render(output_string, True, (0, 0, 0))
-                screen.blit(text, [50, 50])
-                frame_count += 1
-                if minutes == 0:
-                    if totexscore <= 50:
-                        image = pygame.image.load('stick.jpg')
-                        screen.blit(image, (0, 0))
-                    if totexscore > 50:
-                        image = pygame.image.load('buff.jpg')
-                        screen.blit(image, (0, 0))
+                screen.blit(text, [50, 100])
 
+                pygame.display.flip()
+                clock.tick(200)
+        #  second minigame
+        if event.key == pygame.K_2:
             done = False
-            while not done:  # main program loop
-                for event in pygame.event.get():  # user did something
-                    if event.type == pygame.QUIT:  # if user clicked close
-                        done = True  # flag to exit loop
+            while not done:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        done = True
 
+                red = (255, 0, 0)
+                whites = (252, 252, 252)
+                black = (3, 3, 3)
+                skin = (255, 211, 155)
+
+                SIZE = [1350, 720]
+                screen = pygame.display.set_mode(SIZE)
+
+
+                def Fexintro():  # Shows instructions on game
+                    basicfont = pygame.font.SysFont(None, 30)
+                    text = basicfont.render('Press SPACE and try to do as many jumping jacks. Good Luck!', True, black,
+                                            whites)
+                    textrect = text.get_rect()
+                    textrect.centerx = screen.get_rect().centerx
+                    screen.blit(text, textrect)
+                    pygame.display.update()
+
+
+                def exheadbody():
+                    pygame.draw.circle(screen, skin, [650, 150], 100, 0)
+                    pygame.draw.line(screen, skin, [650, 100], [650, 500], 30)
+                    # The torso of the body
+                    pygame.draw.circle(screen, black, [600, 150], 10, 0)
+                    pygame.draw.circle(screen, black, [690, 150], 10, 0)
+                    pygame.draw.line(screen, black, [620, 175], [675, 175], 5)
+                    # The face of the person
+
+
+                def exheadbodyup():
+                    pygame.draw.circle(screen, skin, [650, 100], 100, 0)
+                    pygame.draw.line(screen, skin, [650, 100], [650, 500], 30)
+                    # The torso of the body
+                    pygame.draw.circle(screen, black, [600, 100], 10, 0)
+                    pygame.draw.circle(screen, black, [690, 100], 10, 0)
+                    pygame.draw.line(screen, black, [620, 125], [675, 125], 5)
+                    # The face of body when space is pressed
+
+
+                def exarms():
+                    pygame.draw.line(screen, skin, [650, 300], [500, 400], 10)
+                    pygame.draw.line(screen, skin, [650, 300], [800, 400], 10)
+                    pygame.draw.circle(screen, skin, [500, 400], 20, 0)
+                    pygame.draw.circle(screen, skin, [800, 400], 20, 0)
+                    # Stick arms including the hands when key_up
+
+
+                def exarmsup():
+                    pygame.draw.line(screen, skin, [650, 350], [500, 200], 10)
+                    pygame.draw.line(screen, skin, [650, 350], [800, 200], 10)
+                    pygame.draw.circle(screen, skin, [500, 200], 20, 0)
+                    pygame.draw.circle(screen, skin, [800, 200], 20, 0)
+                    # Stick arms including the hands when key_down
+
+
+                def exlegs():
+                    pygame.draw.line(screen, skin, [645, 500], [600, 700], 20)
+                    pygame.draw.line(screen, skin, [655, 500], [695, 700], 20)
+                    # Stick legs when key_up
+
+
+                def exlegsopen():
+                    pygame.draw.line(screen, skin, [645, 500], [500, 700], 20)
+                    pygame.draw.line(screen, skin, [655, 500], [795, 700], 20)
+                    # Stick legs when key_down
+
+                totexscore = int(0)  # Total score count
+                def timer():
                     font = pygame.font.SysFont('Comic Sans MS', 25)
                     frame_count = pygame.time.get_ticks()
                     frame_rate = 17
-                    start_time = 3636  # Set to 30 seconds
+                    start_time = 1950  # Set to 30 seconds
+
                     total_seconds = start_time - (frame_count // frame_rate)
+
                     if total_seconds < 0:
                         total_seconds = 0
                     minutes = total_seconds // 60
@@ -430,60 +317,85 @@ while not done:
                             image = pygame.image.load('buff.jpg')
                             screen.blit(image, (0, 0))
 
+                done = False
+                while not done:  # main program loop
+                    for event in pygame.event.get():  # user did something
+                        if event.type == pygame.QUIT:  # if user clicked close
+                            done = True  # flag to exit loop
 
+                        font = pygame.font.SysFont('Comic Sans MS', 25)
+                        frame_count = pygame.time.get_ticks()
+                        frame_rate = 17
+                        start_time = 3636  # Set to 30 seconds
+                        total_seconds = start_time - (frame_count // frame_rate)
+                        if total_seconds < 0:
+                            total_seconds = 0
+                        minutes = total_seconds // 60
+                        seconds = total_seconds % 60
+                        output_string = "Time left: {}".format(minutes)
+                        text = font.render(output_string, True, (0, 0, 0))
+                        screen.blit(text, [50, 50])
+                        frame_count += 1
+                        if minutes == 0:
+                            if totexscore <= 50:
+                                image = pygame.image.load('stick.jpg')
+                                screen.blit(image, (0, 0))
+                            if totexscore > 50:
+                                image = pygame.image.load('buff.jpg')
+                                screen.blit(image, (0, 0))
 
-                    screen.fill(whites)
-                    timer()
+                        screen.fill(whites)
+                        timer()
 
-                    # level 1 of game gives low points per key_down
-                    if totexscore <= 15:
-                        if event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_SPACE:
-                                totexscore += 0.25
-                                exheadbodyup()
-                                exarmsup()
-                                exlegsopen()
-                        elif event.type == pygame.KEYUP:
-                            if event.key == pygame.K_SPACE:
-                                exheadbody()
-                                exlegs()
-                                exarms()
+                        # level 1 of game gives low points per key_down
+                        if totexscore <= 15:
+                            if event.type == pygame.KEYDOWN:
+                                if event.key == pygame.K_SPACE:
+                                    totexscore += 0.25
+                                    exheadbodyup()
+                                    exarmsup()
+                                    exlegsopen()
+                            elif event.type == pygame.KEYUP:
+                                if event.key == pygame.K_SPACE:
+                                    exheadbody()
+                                    exlegs()
+                                    exarms()
 
-                    # level 2 of game gives medium points per key_down
-                    if totexscore > 15 and totexscore <= 40:
-                        if event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_SPACE:
-                                totexscore += 0.5
-                                exheadbodyup()
-                                exarmsup()
-                                exlegsopen()
-                        elif event.type == pygame.KEYUP:
-                            if event.key == pygame.K_SPACE:
-                                exheadbody()
-                                exlegs()
-                                exarms()
+                        # level 2 of game gives medium points per key_down
+                        if totexscore > 15 and totexscore <= 40:
+                            if event.type == pygame.KEYDOWN:
+                                if event.key == pygame.K_SPACE:
+                                    totexscore += 0.5
+                                    exheadbodyup()
+                                    exarmsup()
+                                    exlegsopen()
+                            elif event.type == pygame.KEYUP:
+                                if event.key == pygame.K_SPACE:
+                                    exheadbody()
+                                    exlegs()
+                                    exarms()
 
-                    # level 3 of game gives high points per key_down
-                    if totexscore > 40:
-                        if event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_SPACE:
-                                totexscore += 1
-                                exheadbodyup()
-                                exarmsup()
-                                exlegsopen()
-                        elif event.type == pygame.KEYUP:
-                            if event.key == pygame.K_SPACE:
-                                exheadbody()
-                                exlegs()
-                                exarms()
+                        # level 3 of game gives high points per key_down
+                        if totexscore > 40:
+                            if event.type == pygame.KEYDOWN:
+                                if event.key == pygame.K_SPACE:
+                                    totexscore += 1
+                                    exheadbodyup()
+                                    exarmsup()
+                                    exlegsopen()
+                            elif event.type == pygame.KEYUP:
+                                if event.key == pygame.K_SPACE:
+                                    exheadbody()
+                                    exlegs()
+                                    exarms()
 
-                    # Score tracker
-                    font = pygame.font.SysFont('Comic Sans MS', 25)
-                    output_string = "score: " + str(totexscore)
-                    text = font.render(output_string, True, (0, 0, 0))
-                    screen.blit(text, [50, 100])
+                        # Score tracker
+                        font = pygame.font.SysFont('Comic Sans MS', 25)
+                        output_string = "score: " + str(totexscore)
+                        text = font.render(output_string, True, (0, 0, 0))
+                        screen.blit(text, [50, 100])
 
-                    # Instructions
-                    Fexintro()
+                        # Instructions
+                        Fexintro()
 
-                pygame.display.flip()
+                    pygame.display.flip()
