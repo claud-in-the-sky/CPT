@@ -1,6 +1,9 @@
 import pygame
+
 import random
 import math
+import time
+
 pygame.init()
 
 SIZE = [1350, 720]
@@ -8,7 +11,8 @@ screen = pygame.display.set_mode(SIZE)
 
 #  main screen
 image = pygame.image.load('mainn.jpg')
-screen.blit(image, (0,0))
+screen.blit(image, (0, 0))
+pygame.display.flip()
 
 done = False
 while not done:
@@ -20,6 +24,8 @@ while not done:
         if event.key == pygame.K_SPACE:
             image = pygame.image.load('main2.jpg')
             screen.blit(image, (0,0))
+            pygame.display.flip()
+            time.sleep(45)
         #  loads the first minigame
         if event.key == pygame.K_1:
             import pygame
@@ -55,7 +61,7 @@ while not done:
                 font = pygame.font.SysFont('Comic Sans MS', 25)
                 frame_count = pygame.time.get_ticks()
                 frame_rate = 17
-                start_time = 1818
+                start_time = 3636
                 total_seconds = start_time - (frame_count // frame_rate)
                 if total_seconds < 0:
                     total_seconds = 0
@@ -316,6 +322,9 @@ while not done:
                         if totexscore > 50:
                             image = pygame.image.load('buff.jpg')
                             screen.blit(image, (0, 0))
+                        output_string1 = "high score: 150"
+                        text = font.render(output_string1, True, (0, 0, 0))
+                        screen.blit(text, [50, 50])
 
                 done = False
                 while not done:  # main program loop
